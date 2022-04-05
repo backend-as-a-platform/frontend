@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import switchTheme from './utils/switch-theme';
 import NavBar from './components/Nav/NavBar';
-import Hero from './components/Hero';
-
-import './assets/css/App.css';
+import Hero from './components/Hero/Hero';
 import FeaturesBlock from './components/Features/FeaturesBlock';
 
 const App = () => {
