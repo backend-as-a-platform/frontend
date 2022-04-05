@@ -1,9 +1,9 @@
 const ToggleThemeIcon = ({ toggle }) => {
   return (
-    <label className="btn btn-ghost swap swap-rotate">
+    <label className="swap swap-rotate">
       <input type="checkbox" onChange={toggle} />
       <svg
-        className="swap-on fill-current w-7 h-7"
+        className="swap-on fill-current w-7 h-7 mr-2"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >

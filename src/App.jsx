@@ -4,6 +4,8 @@ import NavBar from './components/Nav/NavBar';
 import Hero from './components/Hero/Hero';
 import FeaturesBlock from './components/Features/FeaturesBlock';
 import Footer from './components/Footer/Footer';
+import HeroSimple from './components/Hero/HeroSimple';
+import Workflow from './components/Workflow/Workflow';
 
 const App = () => {
   const [theme, setTheme] = useState(true);
@@ -16,6 +18,8 @@ const App = () => {
       <NavBar toggleTheme={toggleTheme} />
       <Hero />
       <FeaturesBlock />
+      <HeroSimple />
+      <Workflow />
       <Footer />
     </div>
   );
