@@ -3,6 +3,7 @@ import switchTheme from './utils/switch-theme';
 import NavBar from './components/Nav/NavBar';
 import Hero from './components/Hero/Hero';
 import FeaturesBlock from './components/Features/FeaturesBlock';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
   const [theme, setTheme] = useState(true);
@@ -15,6 +16,7 @@ const App = () => {
       <NavBar toggleTheme={toggleTheme} />
       <Hero />
       <FeaturesBlock />
+      <Footer />
     </div>
   );
 };

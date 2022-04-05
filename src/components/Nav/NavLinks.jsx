@@ -4,7 +4,7 @@ const NavLinks = () => (
       <a>Documentation</a>
     </li>
     <li className="lg:px-2">
-      <a>Sign Up</a>
+      <a>Sign up</a>
     </li>
   </>
 );
