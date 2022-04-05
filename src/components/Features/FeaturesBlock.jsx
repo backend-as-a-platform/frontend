@@ -4,25 +4,23 @@ import FeatureThreeIcon from '../Icons/FeatureThreeIcon';
 import FeatureTwoIcon from '../Icons/FeatureTwoIcon';
 
 const FeaturesBlock = () => (
-  <div className="max-w-6xl mx-auto px-4 sm:px-6">
-    <div className="py-12 md:py-20">
-      <div className="max-w-sm mx-auto grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-start md:max-w-2xl lg:max-w-none">
-        <FeatureCard
-          icon={FeatureOneIcon}
-          title="Initial Contact"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        />
-        <FeatureCard
-          icon={FeatureTwoIcon}
-          title="Discovery Session"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        />
-        <FeatureCard
-          icon={FeatureThreeIcon}
-          title="Contracting"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        />
-      </div>
+  <div className="sm:py-6">
+    <div className="px-8 mx-auto max-w-6xl py-10 sm:py-20 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+      <FeatureCard
+        icon={FeatureOneIcon}
+        title="Initial Contact"
+        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      />
+      <FeatureCard
+        icon={FeatureTwoIcon}
+        title="Discovery Session"
+        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      />
+      <FeatureCard
+        icon={FeatureThreeIcon}
+        title="Contracting"
+        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      />
     </div>
   </div>
 );

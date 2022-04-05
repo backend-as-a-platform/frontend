@@ -1,6 +1,6 @@
 const FeatureOneIcon = () => (
   <svg
-    className="w-16 h-16 p-1 -mt-3"
+    className="w-16 h-16 p-1 -mt-1 mb-2"
     viewBox="0 0 64 64"
     xmlns="http://www.w3.org/2000/svg"
   >
