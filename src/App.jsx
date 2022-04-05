@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import NavBar from './components/Nav/NavBar';
 import switchTheme from './utils/switch-theme';
+import NavBar from './components/Nav/NavBar';
+import Hero from './components/Hero';
 
 import './assets/css/App.css';
+import FeaturesBlock from './components/Features/FeaturesBlock';
 
 const App = () => {
   const [theme, setTheme] = useState(true);
@@ -11,25 +13,11 @@ const App = () => {
   useEffect(() => switchTheme(theme), [theme]);
 
   return (
-    <>
+    <div className="mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-14">
       <NavBar toggleTheme={toggleTheme} />
-      <div className="hero mt-20">
-        <div className="hero-content text-center">
-          <div className="">
-            <h1 className="text-6xl font-bold">
-              Backend as a <span className="text-primary">Platform</span>
-            </h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <a className="btn btn-primary">Get Started</a>
-            <a className="btn ml-2">View on Github</a>
-          </div>
-        </div>
-      </div>
-    </>
+      <Hero />
+      <FeaturesBlock />
+    </div>
   );
 };
 

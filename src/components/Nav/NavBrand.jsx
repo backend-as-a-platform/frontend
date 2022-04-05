@@ -1,10 +1,7 @@
 const NavBrand = ({ toggleTheme }) => {
   return (
     <div className="flex-1">
-      <a
-        className="btn btn-md btn-ghost normal-case text-3xl"
-        onClick={toggleTheme}
-      >
+      <a className="btn btn-md btn-ghost normal-case text-3xl">
         <svg
           className="lg:w-9 w-8 text-deep-purple-accent-400"
           viewBox="0 0 24 24"
