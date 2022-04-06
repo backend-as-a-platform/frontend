@@ -2,7 +2,7 @@ import FooterHead from './FooterHead';
 import { FooterLinks, FooterSocialLinks } from './FooterLinks';
 
 const Footer = () => (
-  <footer className="footer footer-center p-10 text-base-content rounded">
+  <footer className="footer footer-center pb-10 text-base-content rounded">
     <FooterHead />
     <FooterLinks />
     <FooterSocialLinks />
