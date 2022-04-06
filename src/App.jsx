@@ -5,7 +5,8 @@ import Hero from './components/Hero/Hero';
 import FeaturesBlock from './components/Features/FeaturesBlock';
 import Footer from './components/Footer/Footer';
 import HeroSimple from './components/Hero/HeroSimple';
-import Workflow from './components/Workflow/Workflow';
+import Workflows from './components/Workflows/Workflows';
+import HeroEnd from './components/Hero/HeroEnd';
 
 const App = () => {
   const [theme, setTheme] = useState(true);
@@ -19,7 +20,8 @@ const App = () => {
       <Hero />
       <FeaturesBlock />
       <HeroSimple />
-      <Workflow />
+      <Workflows />
+      <HeroEnd />
       <Footer />
     </div>
   );
