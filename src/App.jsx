@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import AOS from 'aos';
-import switchTheme from './utils/switch-theme';
+import { getTheme, switchTheme } from './utils/theme';
 import lazyLoadImage from './utils/lazy-load-image';
 import NavBar from './components/Nav/NavBar';
 import HeroMain from './components/Hero/HeroMain';
@@ -16,7 +16,7 @@ import HeroDescription from './components/Hero/HeroDescription';
 import 'aos/dist/aos.css';
 
 const App = () => {
-  const [theme, setTheme] = useState(true);
+  const [theme, setTheme] = useState(getTheme());
   const toggleTheme = (e) => setTheme(!theme);
 
   useEffect(() => {

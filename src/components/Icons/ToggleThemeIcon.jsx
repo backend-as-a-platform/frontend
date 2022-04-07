@@ -1,7 +1,21 @@
+import { useEffect } from 'react';
+import { getTheme } from '../../utils/theme';
+
 const ToggleThemeIcon = ({ toggle }) => {
+  useEffect(() => {
+    // Workaround for changing icon when theme is restored from localStorage
+    // Should look for a better solution when have time
+    const currentTheme = getTheme();
+    let themeSwitcher = document.querySelector('#themeSwitcher');
+
+    if (!currentTheme && !themeSwitcher.checked) {
+      themeSwitcher.checked = true;
+    }
+  }, []);
+
   return (
     <label className="swap swap-rotate">
-      <input type="checkbox" onChange={toggle} />
+      <input id="themeSwitcher" type="checkbox" onChange={toggle} />
       <svg
         className="swap-on fill-current w-7 h-7 mr-2"
         xmlns="http://www.w3.org/2000/svg"
