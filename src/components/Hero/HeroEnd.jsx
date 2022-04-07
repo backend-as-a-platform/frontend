@@ -3,7 +3,7 @@ import HeroTitle from './HeroTitle';
 
 const HeroEnd = ({ title }) => {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-10 pt-16 text-center md:pb-20">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-10 pt-16 md:pt-20 text-center md:pb-20">
       <h1
         className="text-4xl sm:mb-5 md:text-7xl font-extrabold leading-tighter tracking-tighter"
         data-aos="fade-in-down"
