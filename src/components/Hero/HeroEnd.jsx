@@ -1,16 +1,23 @@
 import HeroDescription from './HeroDescription';
 import HeroTitle from './HeroTitle';
 
-const HeroEnd = () => {
+const HeroEnd = ({ title }) => {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-10 md:pt-24 text-center md:pb-20">
-      <HeroTitle text="An amazing sign off message" />
-      <div className="max-w-3xl mx-auto">
-        <HeroDescription
-          text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-          officia deserunt mollit anim id est laborum semper quis lectus nulla
-          at volutpat diam ut venenatis."
-        />
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-10 pt-16 text-center md:pb-20">
+      <h1
+        className="text-4xl sm:mb-5 md:text-7xl font-extrabold leading-tighter tracking-tighter"
+        data-aos="fade-in-down"
+        data-aos-delay="300"
+      >
+        Don't think, just start!
+      </h1>
+      <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
+        <a
+          className="btn btn-primary my-6 w-full sm:w-auto sm:ml-4"
+          data-aos="zoom-y-out"
+        >
+          Let's go
+        </a>
       </div>
     </div>
   );

@@ -1,16 +1,12 @@
 import HeroDescription from './HeroDescription';
 import HeroTitle from './HeroTitle';
 
-const HeroSimple = () => {
+const HeroSimple = ({ title, description }) => {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-14 md:pt-24 text-center md:pb-24">
-      <HeroTitle text="Workflow that is super easy" />
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-8 text-center md:pb-16">
+      <HeroTitle text={title} />
       <div className="max-w-3xl mx-auto">
-        <HeroDescription
-          text="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-          officia deserunt mollit anim id est laborum semper quis lectus nulla
-          at volutpat diam ut venenatis."
-        />
+        <HeroDescription text={description} />
       </div>
     </div>
   );

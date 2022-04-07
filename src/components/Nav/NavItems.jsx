@@ -10,7 +10,7 @@ export const NavItems = () => (
 );
 
 export const NavItemsDropdown = () => (
-  <div className="dropdown dropdown-end pr-1 pt-0.5">
+  <div className="dropdown dropdown-end">
     <DropdownIcon />
     <ul
       tabIndex="0"
