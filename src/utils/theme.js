@@ -1,13 +1,10 @@
 export const getTheme = () => {
   const theme = window.localStorage.getItem('theme');
 
-  if (theme) {
-    if (theme === 'false') {
-      return false;
-    }
+  if (theme && theme !== 'false') {
     return true;
   } else {
-    return true;
+    return false;
   }
 };
 
