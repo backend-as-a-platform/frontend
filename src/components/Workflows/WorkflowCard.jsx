@@ -15,7 +15,7 @@ const WorkflowCard = ({ badge, title, description, image }) => {
             <p className="leading-relaxed mb-4">{description}</p>
           </div>
           <img
-            className="lg:w-1/2 w-full lg:h-auto my-6 h-64 object-cover object-center rounded-xl shadow-2xl hover:scale-105 hover:bg-base-200 delay-50 duration-150"
+            className="lg:w-1/2 w-full lg:h-auto my-6 h-64 object-cover object-center rounded-xl shadow-2xl"
             src={image}
             data-aos="fade-up-left"
             data-aos-delay="300"
