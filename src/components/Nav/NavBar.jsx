@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import ToggleThemeIcon from '../Icons/ToggleThemeIcon';
 import NavBrand from './NavBrand';
 import { NavItems, NavItemsDropdown } from './NavItems';

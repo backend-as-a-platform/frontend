@@ -10,8 +10,6 @@ import Footer from './components/Footer/Footer';
 import HeroSimple from './components/Hero/HeroSimple';
 import Workflows from './components/Workflows/Workflows';
 import HeroEnd from './components/Hero/HeroEnd';
-import HeroTitle from './components/Hero/HeroTitle';
-import HeroDescription from './components/Hero/HeroDescription';
 
 import 'aos/dist/aos.css';
 
