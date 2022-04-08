@@ -14,6 +14,7 @@ const HeroEnd = ({ title }) => {
       <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
         <a
           className="btn btn-primary my-6 w-full sm:w-auto sm:ml-4"
+          href="/docs"
           data-aos="zoom-y-out"
         >
           Let's go
