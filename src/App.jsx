@@ -10,14 +10,16 @@ import Footer from './components/Footer/Footer';
 import HeroSimple from './components/Hero/HeroSimple';
 import Workflows from './components/Workflows/Workflows';
 import HeroEnd from './components/Hero/HeroEnd';
-import HeroTitle from './components/Hero/HeroTitle';
-import HeroDescription from './components/Hero/HeroDescription';
+import SignupModal from './components/Modals/SignupModal';
 
 import 'aos/dist/aos.css';
 
 const App = () => {
   const [theme, setTheme] = useState(getTheme());
+  const [showSignupModal, setShowSignupModal] = useState(false);
+
   const toggleTheme = (e) => setTheme(!theme);
+  const handleShowSignupModal = (e) => setShowSignupModal(!showSignupModal)
 
   useEffect(() => {
     AOS.init({ mirror: true });
@@ -27,7 +29,7 @@ const App = () => {
 
   return (
     <div className="mx-auto md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-14 overflow-clip">
-      <NavBar toggleTheme={toggleTheme} />
+      <NavBar toggleTheme={toggleTheme} onSignup={handleShowSignupModal} />
       <HeroMain />
       <HeroDesign />
       <FeaturesBlock />
@@ -40,6 +42,7 @@ const App = () => {
       <Workflows />
       <HeroEnd title="Don't think, just start!" />
       <Footer />
+      <SignupModal show={showSignupModal} />
     </div>
   );
 };
