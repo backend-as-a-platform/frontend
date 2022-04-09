@@ -16,7 +16,7 @@ export const FooterSocialLinks = () => (
     <a>
       <TwitterIcon />
     </a>
-    <a>
+    <a className="ml-1">
       <YoutubeIcon />
     </a>
     <a>
