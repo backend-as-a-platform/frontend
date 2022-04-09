@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 const Modal = ({ show: open, onHide, title, children }) => {
@@ -51,8 +51,8 @@ const Modal = ({ show: open, onHide, title, children }) => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle bg-white dark:bg-base-100 transition-all transform shadow-xl rounded-2xl">
-              <Dialog.Title as="h3" className="text-lg font-medium leading-6">
+            <div className="inline-block w-full max-w-md p-6 sm:p-7 md:p-8 overflow-hidden text-left align-middle bg-white dark:bg-base-100 transition-all transform shadow-xl rounded-2xl">
+              <Dialog.Title as="h3" className="text-xl font-semibold leading-6">
                 {title}
                 <label
                   className="btn btn-sm btn-ghost btn-circle absolute right-5 top-5"
@@ -61,7 +61,7 @@ const Modal = ({ show: open, onHide, title, children }) => {
                   ✕
                 </label>
               </Dialog.Title>
-              <div className="mt-3">{children}</div>
+              <div className="mt-5">{children}</div>
             </div>
           </Transition.Child>
         </div>

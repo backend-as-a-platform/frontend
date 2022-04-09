@@ -1,9 +1,9 @@
-const NavLinks = ({onSignup}) => (
+const NavLinks = ({ showSignup }) => (
   <>
     <li>
       <a>Documentation</a>
     </li>
-    <li className="lg:px-2" onClick={onSignup}>
+    <li className="lg:px-2" onClick={showSignup}>
       <a>Sign up</a>
     </li>
   </>
