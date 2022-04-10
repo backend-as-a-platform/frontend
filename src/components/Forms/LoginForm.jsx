@@ -1,25 +1,54 @@
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import SpinnerIcon from '../Icons/SpinnerIcon';
+import { login } from '../../hooks/useAuth';
+import { testError } from '../../utils/form-error';
 import {
   textLabel,
   linkPrimary,
   textInput,
   checkBoxLabel,
+  tooltipError,
 } from '../../utils/classes';
 
 const LoginForm = ({ onToggle }) => {
+  const [error, setError] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm();
+
+  const onSubmit = async ({ email, password, remember }) => {
+    setError('');
+
+    const res = await login(email, password);
+
+    setError(res.error || '');
+    if (res.data && res.data.authToken) {
+      //
+    }
+  };
+
   return (
-    <form className="space-y-5">
+    <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label htmlFor="email" className={textLabel}>
           Email
         </label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          className={textInput}
-          placeholder="name@company.com"
-          required
-        />
+        <span
+          className={`w-full ${testError('email', error) ?? tooltipError}`}
+          data-tip={error}
+        >
+          <input
+            type="email"
+            id="email"
+            className={textInput}
+            placeholder="name@company.com"
+            required
+            {...register('email')}
+          />
+        </span>
       </div>
       <div>
         <label htmlFor="password" className={textLabel}>
@@ -27,22 +56,23 @@ const LoginForm = ({ onToggle }) => {
         </label>
         <input
           type="password"
-          name="password"
           id="password"
-          placeholder="••••••••"
           className={textInput}
+          placeholder="••••••••"
           required
+          {...register('password')}
         />
       </div>
       <div className="flex justify-between">
         <div className="flex items-start">
           <div className="flex items-center h-5">
             <input
+              type="checkbox"
+              name="remember"
               id="remember"
               aria-describedby="remember"
-              type="checkbox"
               className="checkbox checkbox-sm"
-              required
+              {...register('remember')}
             />
           </div>
           <div className="ml-3 text-sm">
@@ -55,7 +85,10 @@ const LoginForm = ({ onToggle }) => {
           Lost Password?
         </a>
       </div>
-      <button className="w-full btn btn-primary">Login</button>
+      <button type="submit" className="w-full btn btn-primary">
+        {isSubmitting && <SpinnerIcon size={5} />}
+        Login
+      </button>
       <p className="text-sm font-medium text-gray-900 dark:text-gray-300">
         Not registered yet?{' '}
         <a className={`cursor-pointer ${linkPrimary}`} onClick={onToggle}>

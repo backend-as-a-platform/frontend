@@ -1,49 +1,94 @@
-import { textLabel, textInput, linkPrimary } from '../../utils/classes';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import SpinnerIcon from '../Icons/SpinnerIcon';
+import { signup } from '../../hooks/useAuth';
+import { testError } from '../../utils/form-error';
+import {
+  textLabel,
+  textInput,
+  linkPrimary,
+  tooltipError,
+} from '../../utils/classes';
 
 const SignupForm = ({ onToggle }) => {
+  const [error, setError] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm();
+
+  const onSubmit = async ({ name, email, password }) => {
+    setError('');
+
+    const res = await signup(name, email, password);
+
+    // setError(res.error || '');
+  };
+
   return (
-    <form className="space-y-5">
+    <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label htmlFor="name" className={textLabel}>
           Name
         </label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          className={textInput}
-          placeholder="John Doe"
-          required
-        />
+        <span
+          className={`w-full ${testError('name', error) ?? tooltipError}`}
+          data-tip={error}
+        >
+          <input
+            type="text"
+            id="name"
+            className={textInput}
+            placeholder="John Doe"
+            required
+            {...register('name')}
+          />
+        </span>
       </div>
       <div>
         <label htmlFor="email" className={textLabel}>
           Email
         </label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          className={textInput}
-          placeholder="name@company.com"
-          required
-        />
+        <span
+          className={`${testError('email', error) ?? tooltipError} w-full`}
+          data-tip={error}
+        >
+          <input
+            type="email"
+            name="email"
+            id="email"
+            className={textInput}
+            placeholder="name@company.com"
+            required
+            {...register('email')}
+          />
+        </span>
       </div>
       <div>
         <label htmlFor="password" className={textLabel}>
           Password
         </label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="••••••••"
-          className={textInput}
-          required
-        />
+        <span
+          className={`${testError('password', error) ?? tooltipError} w-full`}
+          data-tip={error}
+        >
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="••••••••"
+            className={textInput}
+            required
+            {...register('password')}
+          />
+        </span>
       </div>
       <div>
-        <button className="w-full mt-2 btn btn-primary">Sign up</button>
+        <button type="submit" className="w-full mt-2 btn btn-primary">
+          {isSubmitting && <SpinnerIcon size={5} />}
+          Sign up
+        </button>
       </div>
       <p className="text-sm text-gray-900 font-medium dark:text-gray-300">
         Already registered?{' '}
