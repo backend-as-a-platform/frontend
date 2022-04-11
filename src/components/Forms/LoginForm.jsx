@@ -12,7 +12,7 @@ import {
 } from '../../utils/classes';
 
 const LoginForm = ({ onToggle }) => {
-  const [error, setError] = useState('');
+  const [error, setError] = useState('hello');
   const {
     register,
     handleSubmit,
@@ -25,9 +25,9 @@ const LoginForm = ({ onToggle }) => {
     const res = await login(email, password);
 
     setError(res.error || '');
-    if (res.data && res.data.authToken) {
-      //
-    }
+    // if (res.data && res.data.authToken) {
+    //   //
+    // }
   };
 
   return (
@@ -37,7 +37,7 @@ const LoginForm = ({ onToggle }) => {
           Email
         </label>
         <span
-          className={`w-full ${testError('email', error) ?? tooltipError}`}
+          className={`w-full ${testError('email', error) ? tooltipError : ''}`}
           data-tip={error}
         >
           <input

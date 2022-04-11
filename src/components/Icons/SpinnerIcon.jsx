@@ -1,7 +1,7 @@
 const SpinnerIcon = ({ size }) => (
   <svg
     role="status"
-    className={`inline mr-1 mt-0.5 w-${size} h-${size} animate-spin text-gray-200 fill-gray-600`}
+    className={`inline mr-1 w-${size} h-${size} animate-spin text-gray-200 fill-gray-600`}
     viewBox="0 0 100 101"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
