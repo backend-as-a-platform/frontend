@@ -16,37 +16,37 @@ import 'aos/dist/aos.css';
 
 const App = () => {
   const [theme, setTheme] = useState(getTheme());
-  const modalTitles = ['Sign up to our platform', 'Login to your account'];
+  const modalTitles = ['Login to your account', 'Sign up to our platform'];
   const [modalTitle, setModalTitle] = useState(modalTitles[0]);
   const [showModal, setShowModal] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   const toggleTheme = (e) => setTheme(!theme);
   const toggleModal = (e) => {
     if (!showModal) {
-      toggleToSignupForm(e);
+      toggleToLogin(e);
     }
 
     setShowModal(!showModal);
   };
-  const toggleToSignupForm = (e) => {
+  const toggleToLogin = (e) => {
     setModalTitle(modalTitles[0]);
-    setShowSignup(true);
+    setShowLogin(true);
   };
-  const toggleToLoginForm = (e) => {
+  const toggleToSignup = (e) => {
     setModalTitle(modalTitles[1]);
-    setShowSignup(false);
+    setShowLogin(false);
   };
 
   useEffect(() => {
-    AOS.init({ mirror: true });
+    AOS.init({ mirror: true, once: true });
     lazyLoadImage(AOS.refresh);
   }, []);
   useEffect(() => switchTheme(theme), [theme]);
 
   return (
     <div className="mx-auto md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-14 overflow-clip">
-      <NavBar toggleTheme={toggleTheme} showSignup={toggleModal} />
+      <NavBar toggleTheme={toggleTheme} showLogin={toggleModal} />
       <HeroMain />
       <HeroDesign />
       <FeaturesBlock />
@@ -62,9 +62,9 @@ const App = () => {
       <AuthModal
         title={modalTitle}
         show={showModal}
-        signup={showSignup}
-        toggleToLogin={toggleToLoginForm}
-        toggleToSignup={toggleToSignupForm}
+        login={showLogin}
+        toggleToLogin={toggleToLogin}
+        toggleToSignup={toggleToSignup}
         onHide={toggleModal}
       />
     </div>

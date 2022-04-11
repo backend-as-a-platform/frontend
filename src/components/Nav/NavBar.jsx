@@ -2,7 +2,7 @@ import ToggleThemeIcon from '../Icons/ToggleThemeIcon';
 import NavBrand from './NavBrand';
 import { NavItems, NavItemsDropdown } from './NavItems';
 
-const Navbar = ({ toggleTheme, showSignup }) => {
+const Navbar = ({ toggleTheme, showLogin }) => {
   return (
     <div
       className="navbar sticky top-0 z-10 bg-base-100 backdrop-blur lg:border-b dark:border-b-slate-50/[0.06] shadow-sm py-1"
@@ -12,8 +12,8 @@ const Navbar = ({ toggleTheme, showSignup }) => {
     >
       <NavBrand />
       <ToggleThemeIcon toggle={toggleTheme} />
-      <NavItems showSignup={showSignup} />
-      <NavItemsDropdown showSignup={showSignup} />
+      <NavItems showLogin={showLogin} />
+      <NavItemsDropdown showLogin={showLogin} />
     </div>
   );
 };

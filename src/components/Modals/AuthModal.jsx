@@ -5,17 +5,17 @@ import SignupForm from '../Forms/SignupForm';
 const AuthModal = ({
   title,
   show,
-  signup,
+  login,
   onHide,
   toggleToLogin,
   toggleToSignup,
 }) => {
   return (
     <Modal title={title} show={show} onHide={onHide}>
-      {signup ? (
-        <SignupForm onToggle={toggleToLogin} />
-      ) : (
+      {login ? (
         <LoginForm onToggle={toggleToSignup} />
+        ) : (
+        <SignupForm onToggle={toggleToLogin} />
       )}
     </Modal>
   );
