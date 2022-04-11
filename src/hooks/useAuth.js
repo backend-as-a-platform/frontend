@@ -12,7 +12,7 @@ const signup = async (name, email, password) => {
   try {
     return await http.post('/users/signup', { name, email, password });
   } catch (err) {
-    console.log(err.response);
+    console.log(err.response.data.reason);
     // return err.response;
   }
 };
