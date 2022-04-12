@@ -1,10 +1,12 @@
+import { transformError } from '../utils/form-error';
 import http from '../utils/http';
 
 const login = async (email, password) => {
   try {
     return await http.post('/users/login', { email, password });
   } catch (err) {
-    return { error: 'Email or Password is incorrect' };
+    const error = transformError(err.response.data.reason)
+    return { error };
   }
 };
 
@@ -12,8 +14,8 @@ const signup = async (name, email, password) => {
   try {
     return await http.post('/users/signup', { name, email, password });
   } catch (err) {
-    console.log(err.response.data.reason);
-    // return err.response;
+    const error = transformError(err.response.data.reason);
+    return { error };
   }
 };
 

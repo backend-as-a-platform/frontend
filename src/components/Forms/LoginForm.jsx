@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { login } from '../../hooks/useAuth';
-import { testError } from '../../utils/form-error';
+import { resetError } from '../../utils/form-error';
 import {
   textLabel,
   linkPrimary,
@@ -12,19 +12,24 @@ import {
 } from '../../utils/classes';
 
 const LoginForm = ({ onToggle }) => {
-  const [error, setError] = useState('hello');
+  const [error, setError] = useState('');
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
 
+  const onChange = (e) => resetError(setError);
+
   const onSubmit = async ({ email, password, remember }) => {
     setError('');
 
     const res = await login(email, password);
 
-    setError(res.error || '');
+    if (res.error) {
+      setError(res.error);
+    }
+
     // if (res.data && res.data.authToken) {
     //   //
     // }
@@ -37,7 +42,7 @@ const LoginForm = ({ onToggle }) => {
           Email
         </label>
         <span
-          className={`w-full ${testError('email', error) ? tooltipError : ''}`}
+          className={`w-full ${error ? tooltipError : ''}`}
           data-tip={error}
         >
           <input
@@ -47,6 +52,7 @@ const LoginForm = ({ onToggle }) => {
             placeholder="name@company.com"
             required
             {...register('email')}
+            onChange={onChange}
           />
         </span>
       </div>
@@ -61,6 +67,7 @@ const LoginForm = ({ onToggle }) => {
           placeholder="••••••••"
           required
           {...register('password')}
+          onChange={onChange}
         />
       </div>
       <div className="flex justify-between">
