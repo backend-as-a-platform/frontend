@@ -5,7 +5,8 @@ const login = async (email, password) => {
   try {
     return await http.post('/users/login', { email, password });
   } catch (err) {
-    return { error: 'Email or Password is incorrect' };
+    const error = transformError(err.response.data.reason)
+    return { error };
   }
 };
 

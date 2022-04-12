@@ -18,14 +18,16 @@ const SignupForm = ({ onToggle }) => {
     formState: { isSubmitting },
   } = useForm();
 
-  const onChange = (e) => resetError(setError)
+  const onChange = (e) => resetError(setError);
 
   const onSubmit = async ({ name, email, password }) => {
     setError('');
 
     const res = await signup(name, email, password);
 
-    setError(res.error || '');
+    if (res.error) {
+      setError(res.error);
+    }
   };
 
   return (
@@ -46,7 +48,7 @@ const SignupForm = ({ onToggle }) => {
             required
             {...register('name')}
             onChange={onChange}
-            />
+          />
         </span>
       </div>
       <div>
@@ -56,7 +58,7 @@ const SignupForm = ({ onToggle }) => {
         <span
           className={`${testError('email', error) ? tooltipError : ''} w-full`}
           data-tip={error}
-          >
+        >
           <input
             type="email"
             name="email"
@@ -66,7 +68,7 @@ const SignupForm = ({ onToggle }) => {
             required
             {...register('email')}
             onChange={onChange}
-            />
+          />
         </span>
       </div>
       <div>
@@ -74,9 +76,11 @@ const SignupForm = ({ onToggle }) => {
           Password
         </label>
         <span
-          className={`${testError('password', error) ? tooltipError : ''} w-full`}
+          className={`${
+            testError('password', error) ? tooltipError : ''
+          } w-full`}
           data-tip={error}
-          >
+        >
           <input
             type="password"
             name="password"

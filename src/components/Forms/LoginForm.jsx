@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { login } from '../../hooks/useAuth';
-import { resetError, testError } from '../../utils/form-error';
+import { resetError } from '../../utils/form-error';
 import {
   textLabel,
   linkPrimary,
@@ -19,14 +19,17 @@ const LoginForm = ({ onToggle }) => {
     formState: { isSubmitting },
   } = useForm();
 
-  const onChange = (e) => resetError(setError)
+  const onChange = (e) => resetError(setError);
 
   const onSubmit = async ({ email, password, remember }) => {
+    setError('');
+
     const res = await login(email, password);
 
     if (res.error) {
       setError(res.error);
     }
+
     // if (res.data && res.data.authToken) {
     //   //
     // }
@@ -39,7 +42,7 @@ const LoginForm = ({ onToggle }) => {
           Email
         </label>
         <span
-          className={`w-full ${testError('email', error) ? tooltipError : ''}`}
+          className={`w-full ${error ? tooltipError : ''}`}
           data-tip={error}
         >
           <input
