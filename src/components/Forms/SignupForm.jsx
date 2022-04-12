@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { signup } from '../../hooks/useAuth';
-import { testError } from '../../utils/form-error';
+import { resetError, testError } from '../../utils/form-error';
 import {
   textLabel,
   textInput,
@@ -18,12 +18,14 @@ const SignupForm = ({ onToggle }) => {
     formState: { isSubmitting },
   } = useForm();
 
+  const onChange = (e) => resetError(setError)
+
   const onSubmit = async ({ name, email, password }) => {
     setError('');
 
     const res = await signup(name, email, password);
 
-    // setError(res.error || '');
+    setError(res.error || '');
   };
 
   return (
@@ -33,7 +35,7 @@ const SignupForm = ({ onToggle }) => {
           Name
         </label>
         <span
-          className={`w-full ${testError('name', error) ?? tooltipError}`}
+          className={`w-full ${testError('name', error) ? tooltipError : ''}`}
           data-tip={error}
         >
           <input
@@ -43,7 +45,8 @@ const SignupForm = ({ onToggle }) => {
             placeholder="John Doe"
             required
             {...register('name')}
-          />
+            onChange={onChange}
+            />
         </span>
       </div>
       <div>
@@ -51,9 +54,9 @@ const SignupForm = ({ onToggle }) => {
           Email
         </label>
         <span
-          className={`${testError('email', error) ?? tooltipError} w-full`}
+          className={`${testError('email', error) ? tooltipError : ''} w-full`}
           data-tip={error}
-        >
+          >
           <input
             type="email"
             name="email"
@@ -62,7 +65,8 @@ const SignupForm = ({ onToggle }) => {
             placeholder="name@company.com"
             required
             {...register('email')}
-          />
+            onChange={onChange}
+            />
         </span>
       </div>
       <div>
@@ -70,9 +74,9 @@ const SignupForm = ({ onToggle }) => {
           Password
         </label>
         <span
-          className={`${testError('password', error) ?? tooltipError} w-full`}
+          className={`${testError('password', error) ? tooltipError : ''} w-full`}
           data-tip={error}
-        >
+          >
           <input
             type="password"
             name="password"
@@ -81,6 +85,7 @@ const SignupForm = ({ onToggle }) => {
             className={textInput}
             required
             {...register('password')}
+            onChange={onChange}
           />
         </span>
       </div>
