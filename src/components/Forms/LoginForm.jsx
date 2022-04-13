@@ -30,7 +30,7 @@ const LoginForm = ({ onToggle }) => {
   const onPasswordChange = (e) => onChange(e, setPassword);
   const onRememberChange = (e) => setRemember(e.target.checked);
 
-  const onSubmit = async ({ email, password, remember }) => {
+  const onSubmit = async () => {
     setError('');
 
     const res = await login(email, password);
