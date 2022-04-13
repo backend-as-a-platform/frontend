@@ -11,6 +11,9 @@ import {
 } from '../../utils/classes';
 
 const LoginForm = ({ onToggle }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
   const [error, setError] = useState('');
   const {
     register,
@@ -18,7 +21,14 @@ const LoginForm = ({ onToggle }) => {
     formState: { isSubmitting },
   } = useForm();
 
-  const onChange = (e) => setError('');
+  const onChange = (e, setter) => {
+    setError('');
+    setter(e.target.value);
+  };
+
+  const onEmailChange = (e) => onChange(e, setEmail);
+  const onPasswordChange = (e) => onChange(e, setPassword);
+  const onRememberChange = (e) => setRemember(e.target.checked);
 
   const onSubmit = async ({ email, password, remember }) => {
     setError('');
@@ -30,7 +40,7 @@ const LoginForm = ({ onToggle }) => {
     }
 
     // if (res.data && res.data.authToken) {
-    //   //
+    //
     // }
   };
 
@@ -49,9 +59,9 @@ const LoginForm = ({ onToggle }) => {
             id="email"
             className={textInput}
             placeholder="name@company.com"
+            value={email}
             required
-            {...register('email')}
-            onChange={onChange}
+            onChange={onEmailChange}
           />
         </span>
       </div>
@@ -64,9 +74,9 @@ const LoginForm = ({ onToggle }) => {
           id="password"
           className={textInput}
           placeholder="••••••••"
+          value={password}
           required
-          {...register('password')}
-          onChange={onChange}
+          onChange={onPasswordChange}
         />
       </div>
       <div className="flex justify-between">
@@ -78,7 +88,8 @@ const LoginForm = ({ onToggle }) => {
               id="remember"
               aria-describedby="remember"
               className="checkbox checkbox-sm"
-              {...register('remember')}
+              checked={remember}
+              onChange={onRememberChange}
             />
           </div>
           <div className="ml-3 text-sm">

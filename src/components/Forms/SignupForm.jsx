@@ -12,17 +12,26 @@ import {
 } from '../../utils/classes';
 
 const SignupForm = ({ onToggle }) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
 
-  const onChange = (e) => setError('');
+  const onChange = (e, setter) => {
+    setError('');
+    setter(e.target.value);
+  };
 
-  const onSubmit = async ({ name, email, password }) => {
+  const onNameChange = (e) => onChange(e, setName);
+  const onEmailChange = (e) => onChange(e, setEmail);
+  const onPasswordChange = (e) => onChange(e, setPassword);
+
+  const onSubmit = async () => {
     setError('');
 
     const res = await signup(name, email, password);
@@ -49,9 +58,9 @@ const SignupForm = ({ onToggle }) => {
             id="name"
             className={textInput}
             placeholder="John Doe"
+            value={name}
             required
-            {...register('name')}
-            onChange={onChange}
+            onChange={onNameChange}
           />
         </span>
       </div>
@@ -62,7 +71,9 @@ const SignupForm = ({ onToggle }) => {
         <span
           className={`${
             error
-              ? (testError('email', error) && tooltipError) || tooltipSuccess // lazy workaround, should improve later.
+              ? (testError('email', error) && tooltipError) ||
+                !(testError('name', error) && testError('password', error)) ||
+                tooltipSuccess // lazy and dumb workaround, should improve later.
               : ''
           } w-full`}
           data-tip={error}
@@ -71,11 +82,11 @@ const SignupForm = ({ onToggle }) => {
             type="email"
             name="email"
             id="email"
+            value={email}
             className={textInput}
             placeholder="name@company.com"
             required
-            {...register('email')}
-            onChange={onChange}
+            onChange={onEmailChange}
           />
         </span>
       </div>
@@ -93,11 +104,11 @@ const SignupForm = ({ onToggle }) => {
             type="password"
             name="password"
             id="password"
+            value={password}
             placeholder="••••••••"
             className={textInput}
             required
-            {...register('password')}
-            onChange={onChange}
+            onChange={onPasswordChange}
           />
         </span>
       </div>
