@@ -72,7 +72,8 @@ const SignupForm = ({ onToggle }) => {
           className={`${
             error
               ? (testError('email', error) && tooltipError) ||
-                !(testError('name', error) && testError('password', error)) ||
+                testError('name', error) ||
+                testError('password', error) ||
                 tooltipSuccess // lazy and dumb workaround, should improve later.
               : ''
           } w-full`}
