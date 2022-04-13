@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { signup } from '../../hooks/useAuth';
-import { resetError, testError } from '../../utils/form-error';
+import { testError } from '../../utils/form-error';
 import {
   textLabel,
   textInput,
@@ -18,7 +18,7 @@ const SignupForm = ({ onToggle }) => {
     formState: { isSubmitting },
   } = useForm();
 
-  const onChange = (e) => resetError(setError);
+  const onChange = (e) => setError('');
 
   const onSubmit = async ({ name, email, password }) => {
     setError('');
