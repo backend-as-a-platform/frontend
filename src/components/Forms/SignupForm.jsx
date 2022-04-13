@@ -2,16 +2,18 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { signup } from '../../hooks/useAuth';
-import { testError } from '../../utils/form-error';
+import { testError } from '../../utils/http';
 import {
   textLabel,
   textInput,
   linkPrimary,
   tooltipError,
+  tooltipSuccess,
 } from '../../utils/classes';
 
 const SignupForm = ({ onToggle }) => {
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const {
     register,
     handleSubmit,
@@ -27,6 +29,8 @@ const SignupForm = ({ onToggle }) => {
 
     if (res.error) {
       setError(res.error);
+    } else {
+      setError(res.result);
     }
   };
 
@@ -56,7 +60,11 @@ const SignupForm = ({ onToggle }) => {
           Email
         </label>
         <span
-          className={`${testError('email', error) ? tooltipError : ''} w-full`}
+          className={`${
+            error
+              ? (testError('email', error) && tooltipError) || tooltipSuccess // lazy workaround, should improve later.
+              : ''
+          } w-full`}
           data-tip={error}
         >
           <input

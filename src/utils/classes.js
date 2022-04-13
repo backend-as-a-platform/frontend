@@ -6,6 +6,7 @@ const textInput =
 const baseLabel = 'font-medium text-gray-900 dark:text-gray-300';
 const textLabel = `block mb-2 text-sm ${baseLabel}`;
 const tooltipPrimary = 'tooltip tooltip-open tooltip-bottom tooltip-primary';
+const tooltipSuccess = 'tooltip tooltip-open tooltip-bottom tooltip-success';
 const tooltipError = 'tooltip tooltip-open tooltip-bottom tooltip-error';
 
 export {
@@ -14,5 +15,6 @@ export {
   textLabel,
   baseLabel as checkBoxLabel,
   tooltipPrimary,
+  tooltipSuccess,
   tooltipError,
 };
