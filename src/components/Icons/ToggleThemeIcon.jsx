@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
-import { useTheme } from '../../contexts/Theme';
+import { useContext, useEffect } from 'react';
+import { Theme } from '../../contexts/Theme';
 
 const ToggleThemeIcon = ({ toggle }) => {
-  const currentTheme = useTheme();
+  const [theme] = useContext(Theme);
 
   useEffect(() => {
     const themeSwitcher = document.querySelector('#themeSwitcher');
 
-    if (!(currentTheme || themeSwitcher.checked)) {
+    if (!(theme || themeSwitcher.checked)) {
       themeSwitcher.checked = true;
     }
-  }, [currentTheme]);
+  }, [theme]);
 
   return (
     <label className="swap swap-rotate">

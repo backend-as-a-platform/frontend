@@ -1,6 +1,4 @@
-import { createContext, useContext } from 'react';
-
-const Theme = createContext(true);
+import { createContext, useEffect, useState } from 'react';
 
 const getTheme = () => {
   const theme = window.localStorage.getItem('theme');
@@ -17,14 +15,19 @@ const switchTheme = (id) => {
 
   document.documentElement.setAttribute('data-theme', themes[id]);
   document.documentElement.setAttribute('class', themes[id]);
+
   window.localStorage.setItem('theme', id);
 };
 
-const ThemeProvider = ({ children }) => (
-  <Theme.Provider value={getTheme()}>{children}</Theme.Provider>
-);
+const Theme = createContext();
 
-const useTheme = () => useContext(Theme);
+const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState(getTheme());
 
+  useEffect(() => switchTheme(theme), [theme]);
+
+  return <Theme.Provider value={[theme, setTheme]}>{children}</Theme.Provider>;
+};
+
+export { Theme };
 export default ThemeProvider;
-export { switchTheme, useTheme };

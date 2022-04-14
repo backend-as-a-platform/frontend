@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AOS from 'aos';
-import { useTheme, switchTheme } from '../../contexts/Theme';
+import { Theme } from '../../contexts/Theme';
 import lazyLoad from '../../utils/lazy-load-image';
 import AuthModal, { modalTitles } from '../Modals/AuthModal';
 import NavBar from '../Nav/NavBar';
@@ -15,12 +15,10 @@ import Footer from '../Footer/Footer';
 import 'aos/dist/aos.css';
 
 const Home = () => {
-  const [theme, setTheme] = useState(useTheme());
+  const [theme, setTheme] = useContext(Theme);
   const [modalTitle, setModalTitle] = useState(modalTitles[0]);
   const [showModal, setShowModal] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-
-  useEffect(() => switchTheme(theme), [theme]);
 
   useEffect(() => {
     AOS.init({ mirror: true, once: true });
@@ -47,7 +45,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div className="mx-auto md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-14 overflow-clip">
       <NavBar toggleTheme={toggleTheme} showLogin={toggleModal} />
       <HeroMain />
       <HeroDesign />
@@ -69,7 +67,7 @@ const Home = () => {
         toggleToSignup={toggleToSignup}
         onHide={toggleModal}
       />
-    </>
+    </div>
   );
 };
 
