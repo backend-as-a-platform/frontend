@@ -6,7 +6,7 @@ import NavBar from './components/Nav/NavBar';
 import HeroMain from './components/Hero/HeroMain';
 import HeroDesign from './components/Hero/HeroDesign';
 import HeroSimple from './components/Hero/HeroSimple';
-import FeaturesBlock from './components/Features/FeaturesBlock';
+import Features from './components/Features/Features';
 import Workflows from './components/Workflows/Workflows';
 import HeroEnd from './components/Hero/HeroEnd';
 import Footer from './components/Footer/Footer';
@@ -49,7 +49,7 @@ const App = () => {
       <NavBar toggleTheme={toggleTheme} showLogin={toggleModal} />
       <HeroMain />
       <HeroDesign />
-      <FeaturesBlock />
+      <Features />
       <HeroSimple
         title="Workflow that is super easy"
         description="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui

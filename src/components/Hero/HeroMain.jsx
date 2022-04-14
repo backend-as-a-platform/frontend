@@ -1,7 +1,7 @@
-import HeroDescription from './HeroDescription';
-import HeroImage from './HeroImage';
-import HeroLinks from './HeroLinks';
 import HeroTitle from './HeroTitle';
+import HeroDescription from './HeroDescription';
+import HeroLinks from './HeroLinks';
+import HeroImage from './HeroImage';
 
 const HeroMain = () => (
   <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-12 md:pt-36 text-center md:pb-16">

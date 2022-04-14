@@ -1,8 +1,8 @@
-import ToggleThemeIcon from '../Icons/ToggleThemeIcon';
 import NavBrand from './NavBrand';
 import { NavItems, NavItemsDropdown } from './NavItems';
+import ToggleThemeIcon from '../Icons/ToggleThemeIcon';
 
-const Navbar = ({ toggleTheme, showLogin }) => {
+const NavBar = ({ toggleTheme, showLogin }) => {
   return (
     <div
       className="navbar sticky top-0 z-10 bg-base-100 backdrop-blur lg:border-b dark:border-b-slate-50/[0.06] shadow-sm py-1"
@@ -18,4 +18,4 @@ const Navbar = ({ toggleTheme, showLogin }) => {
   );
 };
 
-export default Navbar;
+export default NavBar;

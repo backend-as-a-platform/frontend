@@ -1,5 +1,5 @@
-import HeroDescription from './HeroDescription';
 import HeroTitle from './HeroTitle';
+import HeroDescription from './HeroDescription';
 
 const HeroSimple = ({ title, description }) => {
   return (

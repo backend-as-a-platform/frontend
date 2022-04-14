@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SpinnerIcon from '../Icons/SpinnerIcon';
-import { login } from '../../hooks/useAuth';
+import { onChange } from '../../hooks/useForm';
+import { onLogin } from '../../hooks/useAuth';
 import {
   textLabel,
   linkPrimary,
@@ -16,33 +17,14 @@ const LoginForm = ({ onToggle }) => {
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState('');
   const {
-    register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
 
-  const onChange = (e, setter) => {
-    setError('');
-    setter(e.target.value);
-  };
-
-  const onEmailChange = (e) => onChange(e, setEmail);
-  const onPasswordChange = (e) => onChange(e, setPassword);
+  const onEmailChange = (e) => onChange(e, setEmail, setError);
+  const onPasswordChange = (e) => onChange(e, setPassword, setError);
   const onRememberChange = (e) => setRemember(e.target.checked);
-
-  const onSubmit = async () => {
-    setError('');
-
-    const res = await login(email, password);
-
-    if (res.error) {
-      setError(res.error);
-    }
-
-    // if (res.data && res.data.authToken) {
-    //
-    // }
-  };
+  const onSubmit = (e) => onLogin(email, password, setError);
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>

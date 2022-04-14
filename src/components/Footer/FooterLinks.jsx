@@ -1,6 +1,8 @@
-import TwitterIcon from '../Icons/TwitterIcon';
-import YoutubeIcon from '../Icons/YoutubeIcon';
-import FacebookIcon from '../Icons/FacebookIcon';
+import {
+  TwitterIcon,
+  YoutubeIcon,
+  FacebookIcon,
+} from '../Icons/SocialMediaIcons';
 
 export const FooterLinks = () => (
   <div className="grid grid-flow-col gap-4">

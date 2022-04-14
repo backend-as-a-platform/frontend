@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SpinnerIcon from '../Icons/SpinnerIcon';
-import { signup } from '../../hooks/useAuth';
 import { testError } from '../../utils/http';
+import { onChange } from '../../hooks/useForm';
+import { onSignup } from '../../hooks/useAuth';
 import {
   textLabel,
   textInput,
@@ -17,31 +18,14 @@ const SignupForm = ({ onToggle }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const {
-    register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
 
-  const onChange = (e, setter) => {
-    setError('');
-    setter(e.target.value);
-  };
-
-  const onNameChange = (e) => onChange(e, setName);
-  const onEmailChange = (e) => onChange(e, setEmail);
-  const onPasswordChange = (e) => onChange(e, setPassword);
-
-  const onSubmit = async () => {
-    setError('');
-
-    const res = await signup(name, email, password);
-
-    if (res.error) {
-      setError(res.error);
-    } else {
-      setError(res.result);
-    }
-  };
+  const onNameChange = (e) => onChange(e, setName, setError);
+  const onEmailChange = (e) => onChange(e, setEmail, setError);
+  const onPasswordChange = (e) => onChange(e, setPassword, setError);
+  const onSubmit = (e) => onSignup(name, email, password, setError);
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>

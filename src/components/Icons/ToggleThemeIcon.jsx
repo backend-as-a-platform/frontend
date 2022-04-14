@@ -4,11 +4,11 @@ import { getTheme } from '../../utils/theme';
 const ToggleThemeIcon = ({ toggle }) => {
   useEffect(() => {
     // Workaround for changing icon when theme is restored from localStorage
-    // Should look for a better solution when have time
+    // Should improve when have time
     const currentTheme = getTheme();
-    let themeSwitcher = document.querySelector('#themeSwitcher');
+    const themeSwitcher = document.querySelector('#themeSwitcher');
 
-    if (!currentTheme && !themeSwitcher.checked) {
+    if (!(currentTheme || themeSwitcher.checked)) {
       themeSwitcher.checked = true;
     }
   }, []);

@@ -1,9 +1,11 @@
 import FeatureCard from './FeatureCard';
-import FeatureOneIcon from '../Icons/FeatureOneIcon';
-import FeatureThreeIcon from '../Icons/FeatureThreeIcon';
-import FeatureTwoIcon from '../Icons/FeatureTwoIcon';
+import {
+  FeatureOneIcon,
+  FeatureTwoIcon,
+  FeatureThreeIcon,
+} from '../Icons/FeatureIcons';
 
-const FeaturesBlock = () => (
+const Features = () => (
   <div className="py-3">
     <div className="px-8 mx-auto max-w-6xl py-10 sm:py-20 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6">
       <div
@@ -43,4 +45,4 @@ const FeaturesBlock = () => (
   </div>
 );
 
-export default FeaturesBlock;
+export default Features;

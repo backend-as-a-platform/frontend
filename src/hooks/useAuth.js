@@ -1,17 +1,24 @@
-import { transformResponse } from '../utils/http';
-import http from '../utils/http';
+import http, { transformResponse } from '../utils/http';
 
-const login = async (email, password) => {
+const onLogin = async (email, password, setResult) => {
+  setResult('');
+
   try {
     const { data } = await http.post('/users/login', { email, password });
-    return data;
-  } catch (err) {
-    const error = transformResponse(err.response.data.reason);
-    return { error };
+
+    // if (data && data.authToken) {
+    //
+    // }
+  } catch ({ response }) {
+    const error = transformResponse(response.data.reason);
+
+    setResult(error);
   }
 };
 
-const signup = async (name, email, password) => {
+const onSignup = async (name, email, password, setResult) => {
+  setResult('');
+
   try {
     const { data } = await http.post('/users/signup', {
       name,
@@ -21,11 +28,12 @@ const signup = async (name, email, password) => {
 
     const result = transformResponse(data.result);
 
-    return { result };
-  } catch (err) {
-    const error = transformResponse(err.response.data.reason);
-    return { error };
+    setResult(result);
+  } catch ({ response }) {
+    const error = transformResponse(response.data.reason);
+
+    setResult(error);
   }
 };
 
-export { login, signup };
+export { onLogin, onSignup };
