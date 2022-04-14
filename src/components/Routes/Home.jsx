@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import AOS from 'aos';
-import { getTheme, switchTheme } from '../../utils/theme';
+import { useTheme, switchTheme } from '../../contexts/Theme';
 import lazyLoad from '../../utils/lazy-load-image';
 import AuthModal, { modalTitles } from '../Modals/AuthModal';
 import NavBar from '../Nav/NavBar';
@@ -15,7 +15,7 @@ import Footer from '../Footer/Footer';
 import 'aos/dist/aos.css';
 
 const Home = () => {
-  const [theme, setTheme] = useState(getTheme());
+  const [theme, setTheme] = useState(useTheme());
   const [modalTitle, setModalTitle] = useState(modalTitles[0]);
   const [showModal, setShowModal] = useState(false);
   const [showLogin, setShowLogin] = useState(false);

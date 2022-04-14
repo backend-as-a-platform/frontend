@@ -1,7 +1,11 @@
+import { createContext, useContext } from 'react';
+
+const Theme = createContext(true);
+
 const getTheme = () => {
   const theme = window.localStorage.getItem('theme');
 
-  if (theme && theme !== 'false') {
+  if (!theme || theme === 'true') {
     return true;
   } else {
     return false;
@@ -16,4 +20,11 @@ const switchTheme = (id) => {
   window.localStorage.setItem('theme', id);
 };
 
-export { getTheme, switchTheme };
+const ThemeProvider = ({ children }) => (
+  <Theme.Provider value={getTheme()}>{children}</Theme.Provider>
+);
+
+const useTheme = () => useContext(Theme);
+
+export default ThemeProvider;
+export { switchTheme, useTheme };
