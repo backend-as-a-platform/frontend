@@ -63,7 +63,7 @@ const SignupForm = ({ onToggle }) => {
                 testError('password', error) ||
                 tooltipSuccess // lazy and dumb workaround, should improve later.
               : ''
-          } w-full`}
+          } w-full z-10`}
           data-tip={error}
         >
           <input

@@ -14,11 +14,14 @@ const AuthModal = ({
     <Modal title={title} show={show} onHide={onHide}>
       {login ? (
         <LoginForm onToggle={toggleToSignup} />
-        ) : (
+      ) : (
         <SignupForm onToggle={toggleToLogin} />
       )}
     </Modal>
   );
 };
 
+const modalTitles = ['Login to your account', 'Sign up to our platform'];
+
 export default AuthModal;
+export { modalTitles };
