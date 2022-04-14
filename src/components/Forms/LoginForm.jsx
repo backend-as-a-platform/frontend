@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import EyeIcon from '../Icons/EyeIcon';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { onChange } from '../../hooks/useForm';
 import { onLogin } from '../../hooks/useAuth';
@@ -14,6 +15,7 @@ import {
 const LoginForm = ({ onToggle }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState('');
   const {
@@ -23,6 +25,7 @@ const LoginForm = ({ onToggle }) => {
 
   const onEmailChange = (e) => onChange(e, setEmail, setError);
   const onPasswordChange = (e) => onChange(e, setPassword, setError);
+  const onEyeChange = (e) => setShowPassword(e.target.checked);
   const onRememberChange = (e) => setRemember(e.target.checked);
   const onSubmit = (e) => onLogin(email, password, setError);
 
@@ -51,15 +54,20 @@ const LoginForm = ({ onToggle }) => {
         <label htmlFor="password" className={textLabel}>
           Password
         </label>
-        <input
-          type="password"
-          id="password"
-          className={textInput}
-          placeholder="••••••••"
-          value={password}
-          required
-          onChange={onPasswordChange}
-        />
+        <div className="relative">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            id="password"
+            className={textInput}
+            placeholder="••••••••"
+            value={password}
+            required
+            onChange={onPasswordChange}
+          />
+          <div className="flex absolute inset-y-0 right-0 items-center pr-2">
+            <EyeIcon onChange={onEyeChange} />
+          </div>
+        </div>
       </div>
       <div className="flex justify-between">
         <div className="flex items-start">
