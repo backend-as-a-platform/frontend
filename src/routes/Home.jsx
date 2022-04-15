@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 import AOS from 'aos';
-import { Theme } from '../../contexts/Theme';
-import lazyLoad from '../../utils/lazy-load-image';
-import AuthModal, { modalTitles } from '../Modals/AuthModal';
-import NavBar from '../Nav/NavBar';
-import HeroMain from '../Hero/HeroMain';
-import HeroDesign from '../Hero/HeroDesign';
-import Features from '../Features/Features';
-import HeroSimple from '../Hero/HeroSimple';
-import Workflows from '../Workflows/Workflows';
-import HeroEnd from '../Hero/HeroEnd';
-import Footer from '../Footer/Footer';
+import { Theme } from '../contexts/Theme';
+import lazyLoad from '../utils/lazy-load-image';
+import AuthModal, { modalTitles } from '../components/Modals/AuthModal';
+import NavBar from '../components/Nav/NavBar';
+import HeroMain from '../components/Hero/HeroMain';
+import HeroDesign from '../components/Hero/HeroDesign';
+import Features from '../components/Features/Features';
+import HeroSimple from '../components/Hero/HeroSimple';
+import Workflows from '../components/Workflows/Workflows';
+import HeroEnd from '../components/Hero/HeroEnd';
+import Footer from '../components/Footer/Footer';
 
 import 'aos/dist/aos.css';
 
