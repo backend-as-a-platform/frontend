@@ -4,7 +4,7 @@ import EyeIcon from '../Icons/EyeIcon';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { testError } from '../../utils/http';
 import { onChange } from '../../hooks/useForm';
-import { onSignup } from '../../hooks/useAuth';
+import { signup } from '../../hooks/useAuth';
 import {
   textLabel,
   textInput,
@@ -28,7 +28,7 @@ const SignupForm = ({ onToggle }) => {
   const onEmailChange = (e) => onChange(e, setEmail, setError);
   const onPasswordChange = (e) => onChange(e, setPassword, setError);
   const onEyeChange = (e) => setShowPassword(e.target.checked);
-  const onSubmit = (e) => onSignup(name, email, password, setError);
+  const onSubmit = (e) => signup(name, email, password, setError);
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>

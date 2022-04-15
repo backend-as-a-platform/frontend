@@ -1,23 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-
-const getTheme = () => {
-  const theme = window.localStorage.getItem('theme');
-
-  if (!theme || theme === 'true') {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-const switchTheme = (id) => {
-  const themes = { true: 'light', false: 'dark' };
-
-  document.documentElement.setAttribute('data-theme', themes[id]);
-  document.documentElement.setAttribute('class', themes[id]);
-
-  window.localStorage.setItem('theme', id);
-};
+import { getTheme, switchTheme } from '../hooks/useTheme';
 
 const Theme = createContext();
 

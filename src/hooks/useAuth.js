@@ -1,6 +1,6 @@
 import http, { transformResponse } from '../utils/http';
 
-const onLogin = async (email, password, setResult) => {
+const login = async (email, password, setResult) => {
   setResult('');
 
   try {
@@ -16,7 +16,7 @@ const onLogin = async (email, password, setResult) => {
   }
 };
 
-const onSignup = async (name, email, password, setResult) => {
+const signup = async (name, email, password, setResult) => {
   setResult('');
 
   try {
@@ -36,4 +36,4 @@ const onSignup = async (name, email, password, setResult) => {
   }
 };
 
-export { onLogin, onSignup };
+export { login, signup };

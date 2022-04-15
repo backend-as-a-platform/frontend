@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import EyeIcon from '../Icons/EyeIcon';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { onChange } from '../../hooks/useForm';
-import { onLogin } from '../../hooks/useAuth';
+import { login } from '../../hooks/useAuth';
 import {
   textLabel,
   linkPrimary,
@@ -27,7 +27,7 @@ const LoginForm = ({ onToggle }) => {
   const onPasswordChange = (e) => onChange(e, setPassword, setError);
   const onEyeChange = (e) => setShowPassword(e.target.checked);
   const onRememberChange = (e) => setRemember(e.target.checked);
-  const onSubmit = (e) => onLogin(email, password, setError);
+  const onSubmit = (e) => login(email, password, setError);
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
