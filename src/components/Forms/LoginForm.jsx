@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import { decodeJwt } from 'jose';
+import { Auth } from '../../contexts/Auth';
 import EyeIcon from '../Icons/EyeIcon';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { onChange } from '../../hooks/useForm';
@@ -13,6 +16,7 @@ import {
 } from '../../utils/classes';
 
 const LoginForm = ({ onToggle }) => {
+  const [auth, setAuth] = useContext(Auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -22,12 +26,24 @@ const LoginForm = ({ onToggle }) => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
+  const navigate = useNavigate();
 
   const onEmailChange = (e) => onChange(e, setEmail, setError);
   const onPasswordChange = (e) => onChange(e, setPassword, setError);
   const onEyeChange = (e) => setShowPassword(e.target.checked);
   const onRememberChange = (e) => setRemember(e.target.checked);
-  const onSubmit = (e) => login(email, password, setError);
+  const onSubmit = async (e) => {
+    const authToken login(email, password, remember, setError);
+
+    // Will update Auth context with the new authenticated user
+    if (authToken) {
+      const decodedCookie = decodeJwt(authToken);
+
+      setAuth((current) => ({ ...current, ...decodedCookie }));
+
+      navigate('/dashboard');
+    }
+  };
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>

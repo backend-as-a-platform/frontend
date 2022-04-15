@@ -1,18 +1,27 @@
+import { Cookies } from 'react-cookie';
 import http, { transformResponse } from '../utils/http';
 
-const login = async (email, password, setResult) => {
-  setResult('');
+const cookies = new Cookies();
+let authToken = null;
 
+const login = async (email, password, remember, setResult) => {
+  setResult('');
   try {
     const { data } = await http.post('/users/login', { email, password });
+    // Cookie expires in 7 days
+    const maxAge = remember ? 7 * 24 * 60 * 60 - 60 : null;
 
-    // if (data && data.authToken) {
-    //
-    // }
+    authToken = data.authToken;
+
+    cookies.set('auth', authToken, { path: '/', maxAge });
+
+    return authToken;
   } catch ({ response }) {
     const error = transformResponse(response.data.reason);
 
     setResult(error);
+
+    return false;
   }
 };
 
@@ -29,11 +38,47 @@ const signup = async (name, email, password, setResult) => {
     const result = transformResponse(data.result);
 
     setResult(result);
+
+    return true;
   } catch ({ response }) {
     const error = transformResponse(response.data.reason);
 
     setResult(error);
+
+    return false;
   }
 };
 
-export { login, signup };
+const logout = async () => {
+  cookies.remove('auth');
+
+  try {
+    await http.get('/users/logout', {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    return true;
+  } catch ({ response }) {
+    return false;
+  }
+};
+
+const logoutAll = async () => {
+  cookies.remove('auth');
+
+  try {
+    await http.get('/users/logout/all', {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    return true;
+  } catch ({ response }) {
+    return false;
+  }
+};
+
+export { cookies, login, signup, authToken, logout, logoutAll };
