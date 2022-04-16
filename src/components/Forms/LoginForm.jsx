@@ -33,7 +33,7 @@ const LoginForm = ({ onToggle }) => {
   const onEyeChange = (e) => setShowPassword(e.target.checked);
   const onRememberChange = (e) => setRemember(e.target.checked);
   const onSubmit = async (e) => {
-    const authToken = login(email, password, remember, setError);
+    const authToken = await login(email, password, remember, setError);
 
     // Will update Auth context with the new authenticated user
     if (authToken) {
