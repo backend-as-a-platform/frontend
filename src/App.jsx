@@ -32,7 +32,7 @@ const App = () => {
       />
       <Route path="/logout" element={<ProtectedRoute route={<Logout />} />} />
       <Route
-        path="/logout/all"
+        path="/logout-all"
         element={<ProtectedRoute route={<Logout all />} />}
       />
       <Route path="*" element={<FourOhFour />} />

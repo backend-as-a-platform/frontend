@@ -49,11 +49,12 @@ const signup = async (name, email, password, setResult) => {
   }
 };
 
-const logout = async () => {
+const logout = async (all) => {
   cookies.remove('auth');
 
   try {
-    await http.get('/users/logout', {
+    // ${all ? '/all' : ''}
+    await http.get(`/users/logout/all`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -65,20 +66,4 @@ const logout = async () => {
   }
 };
 
-const logoutAll = async () => {
-  cookies.remove('auth');
-
-  try {
-    await http.get('/users/logout/all', {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-
-    return true;
-  } catch ({ response }) {
-    return false;
-  }
-};
-
-export { cookies, login, signup, authToken, logout, logoutAll };
+export { cookies, login, signup, authToken, logout };

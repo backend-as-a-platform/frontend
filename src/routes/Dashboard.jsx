@@ -21,7 +21,7 @@ const Dashboard = () => {
         Logout current session
       </Link>
       <br />
-      <Link to="/logout/all" className={linkPrimary}>
+      <Link to="/logout-all" className={linkPrimary}>
         Logout all sessions
       </Link>
     </>
