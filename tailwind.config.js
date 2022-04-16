@@ -1,7 +1,11 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'nunito-sans': ['"Nunito Sans"'],
+      },
+    },
   },
   plugins: [require('daisyui')],
   daisyui: {
