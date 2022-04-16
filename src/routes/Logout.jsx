@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { logout, authToken, logoutAll } from '../hooks/useAuth';
+import { logout, logoutAll } from '../hooks/useAuth';
 
 const Logout = async ({ all }) => {
   if (all) {
