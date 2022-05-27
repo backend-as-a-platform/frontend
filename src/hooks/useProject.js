@@ -17,13 +17,10 @@ const createProject = async (name, description, setResult) => {
 };
 
 const getProjects = async () => {
-  try {
-    const { data } = await http.get('/projects');
+  // Hope no exceptions will be thrown
+  const { data } = await http.get('/projects');
 
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
+  return data;
 };
 
 export { createProject, getProjects };
