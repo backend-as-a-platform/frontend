@@ -26,6 +26,7 @@ const Projects = () => {
       <CTA />
 
       {/* <DashboardTable /> */}
+      <h2>hello testing</h2>
       <table className="table w-full">
         <thead>
           <tr>

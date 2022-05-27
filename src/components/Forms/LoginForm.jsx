@@ -16,7 +16,7 @@ import {
 } from '../../utils/classes';
 
 const LoginForm = ({ onToggle }) => {
-  const [auth, setAuth] = useContext(Auth);
+  // const [auth, setAuth] = useContext(Auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +26,6 @@ const LoginForm = ({ onToggle }) => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
-  const navigate = useNavigate();
 
   const onEmailChange = (e) => onChange(e, setEmail, setError);
   const onPasswordChange = (e) => onChange(e, setPassword, setError);
@@ -39,9 +38,8 @@ const LoginForm = ({ onToggle }) => {
     if (authToken) {
       const decodedToken = decodeJwt(authToken);
 
-      setAuth((current) => ({ ...current, ...decodedToken }));
-
-      navigate('/dashboard');
+      // setAuth((current) => ({ ...current, ...decodedToken }));
+      window.location.pathname = '/dashboard';
     }
   };
 
