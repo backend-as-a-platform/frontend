@@ -1,7 +1,7 @@
-const Logo = () => (
+const Logo = ({ height, weight }) => (
   <svg
-    width="40"
-    height="40"
+    width={height || '40'}
+    height={weight || '40'}
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     fillRule="evenodd"

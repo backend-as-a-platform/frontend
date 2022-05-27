@@ -37,9 +37,9 @@ const LoginForm = ({ onToggle }) => {
 
     // Will update Auth context with the new authenticated user
     if (authToken) {
-      const decodedCookie = decodeJwt(authToken);
+      const decodedToken = decodeJwt(authToken);
 
-      setAuth((current) => ({ ...current, ...decodedCookie }));
+      setAuth((current) => ({ ...current, ...decodedToken }));
 
       navigate('/dashboard');
     }

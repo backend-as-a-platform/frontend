@@ -1,31 +1,36 @@
-import { Link } from 'react-router-dom';
-import { linkPrimary } from '../utils/classes';
-import FourOhThree from './403';
+import React, { useContext, Suspense, useEffect, lazy } from 'react';
+import { Route, useLocation } from 'react-router-dom';
 
-const Dashboard = () => {
+import Sidebar from '../components/Sidebar/Sidebar';
+import Header from '../components/Header/Header';
+import { SidebarContext } from '../contexts/Sidebar';
+import Container from '../components/Container/Container';
+
+function DashboardLayout({ component }) {
+  const Component = component;
+
+  const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
+  let location = useLocation();
+
+  useEffect(() => {
+    closeSidebar();
+  }, [location]);
+
   return (
-    <>
-      <h1>
-        This is protected route. Should only be available to authenticated
-        users. Try visiting this route without logging in and see it for
-        yourself.
-      </h1>
-      <br />
-      <h1>
-        Also once logged in, you will be automatically redirected to this route
-        if you visit home route ('/') again. Try going back and you'll know what
-        I mean.
-      </h1>
-      <br />
-      <Link to="/logout" className={linkPrimary}>
-        Logout current session
-      </Link>
-      <br />
-      <Link to="/logout-all" className={linkPrimary}>
-        Logout all sessions
-      </Link>
-    </>
+    <div
+      className={`flex h-screen bg-gray-50 dark:bg-gray-900 ${
+        isSidebarOpen && 'overflow-hidden'
+      }`}
+    >
+      <Sidebar />
+      <div className="flex flex-1 flex-col">
+        <Header />
+        <Container>
+          <Component />
+        </Container>
+      </div>
+    </div>
   );
-};
+}
 
-export default Dashboard;
+export default DashboardLayout;

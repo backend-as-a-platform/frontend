@@ -1,22 +1,21 @@
 import { createContext, useEffect, useState } from 'react';
 import { decodeJwt } from 'jose';
-import { cookies } from '../hooks/useAuth';
+import { authToken, cookies } from '../utils/http';
 
 const Auth = createContext();
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({ _id: null, name: null, email: null });
-  const cookie = cookies.get('auth');
 
   // Upon browser reload, auth object will be reset
   // This will re-populate it
   useEffect(() => {
-    if (cookie) {
-      const decodedCookie = decodeJwt(cookie);
+    if (authToken) {
+      const decodedCookie = decodeJwt(authToken);
 
       setAuth((current) => ({ ...current, ...decodedCookie }));
     }
-  }, [cookie]);
+  }, [authToken]);
 
   return <Auth.Provider value={[auth, setAuth]}>{children}</Auth.Provider>;
 };

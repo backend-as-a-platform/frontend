@@ -1,11 +1,10 @@
-import { Cookies } from 'react-cookie';
-import http, { transformResponse } from '../utils/http';
+import http, { cookies, transformResponse } from '../utils/http';
 
-const cookies = new Cookies();
 let authToken = null;
 
 const login = async (email, password, remember, setResult) => {
   setResult('');
+
   try {
     const { data } = await http.post('/users/login', { email, password });
     // Cookie expires in 7 days
@@ -66,4 +65,4 @@ const logout = async (all) => {
   }
 };
 
-export { cookies, login, signup, authToken, logout };
+export { login, signup, logout };

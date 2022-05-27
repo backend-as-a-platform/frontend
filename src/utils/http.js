@@ -1,6 +1,13 @@
+import { Cookies } from 'react-cookie';
 import axios from 'axios';
 
-const http = axios.create({ baseURL: import.meta.env.VITE_BACKEND_URI });
+const cookies = new Cookies();
+const authToken = cookies.get('auth');
+
+const http = axios.create({
+  baseURL: import.meta.env.VITE_BACKEND_URI,
+  headers: { Authorization: `Bearer ${authToken}` },
+});
 
 const testError = (input, error) =>
   error.toLowerCase().search(input.toLowerCase()) > -1 ? true : false;
@@ -11,4 +18,4 @@ const transformResponse = (response) => {
 };
 
 export default http;
-export { testError, transformResponse };
+export { cookies, authToken, testError, transformResponse };
