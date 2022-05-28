@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Auth } from '../../contexts/Auth';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { onChange } from '../../hooks/useForm';
 import { login } from '../../hooks/useAuth';
-import { createProject } from '../../hooks/useProject';
+import { updateProject } from '../../hooks/useProject';
 import {
   textLabel,
   linkPrimary,
@@ -15,24 +15,37 @@ import {
   tooltipError,
 } from '../../utils/classes';
 
-const CreateProjectForm = ({ onSuccess, setProjects }) => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+const EditProjectForm = ({
+  name,
+  description,
+  onSuccess,
+  setName,
+  setDescription,
+}) => {
+  const [newName, setNewName] = useState(name);
+  const [newDescription, setNewDescription] = useState(description);
   const [error, setError] = useState('');
+  const { projectId } = useParams();
   const {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
 
-  const onNameChange = (e) => onChange(e, setName, setError);
-  const onDescriptionChange = (e) => onChange(e, setDescription, setError);
+  const onNameChange = (e) => onChange(e, setNewName, setError);
+  const onDescriptionChange = (e) => onChange(e, setNewDescription, setError);
   const onSubmit = async (e) => {
-    const newProject = await createProject(name, description, setError);
+    const updatedProject = await updateProject(
+      projectId,
+      newName,
+      newDescription,
+      setError
+    );
 
     // Hide modal
-    if (newProject) {
+    if (updatedProject) {
       onSuccess();
-      setProjects((oldProjects) => [...oldProjects, newProject]);
+      setName(updatedProject.name);
+      setDescription(updatedProject.description);
     }
   };
 
@@ -51,7 +64,7 @@ const CreateProjectForm = ({ onSuccess, setProjects }) => {
             id="name"
             className={textInput}
             placeholder="my-awesome-project"
-            value={name}
+            value={newName}
             required
             onChange={onNameChange}
           />
@@ -65,7 +78,7 @@ const CreateProjectForm = ({ onSuccess, setProjects }) => {
           <textarea
             id="description"
             className={textArea}
-            value={description}
+            value={newDescription}
             rows={3}
             placeholder="Optional description"
             onChange={onDescriptionChange}
@@ -74,10 +87,10 @@ const CreateProjectForm = ({ onSuccess, setProjects }) => {
       </div>
       <button type="submit" className="w-full btn btn-primary">
         {isSubmitting && <SpinnerIcon size={5} />}
-        Create
+        Update
       </button>
     </form>
   );
 };
 
-export default CreateProjectForm;
+export default EditProjectForm;

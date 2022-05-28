@@ -6,6 +6,7 @@ import DashboardTable from '../Tables/DashboardTable';
 import PageButton from './PageButton';
 import CreateProjectModal from '../Modals/CreateProjectModal';
 import { getProjects } from '../../hooks/useProject';
+import { Link } from 'react-router-dom';
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -20,35 +21,45 @@ const Projects = () => {
     <>
       <div>
         <PageTitle>Projects</PageTitle>
-        <PageButton label="Create project" onClick={toggleModal} />
+        <PageButton
+          style="primary"
+          label="Create project"
+          onClick={toggleModal}
+        />
       </div>
 
       <CTA />
 
       {/* <DashboardTable /> */}
-      <h2>hello testing</h2>
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {projects.map((project, i) => (
-            <tr key={project._id}>
-              <td>{i + 1}</td>
-              <td>{project.name}</td>
-              <td>{project.description}</td>
-              <td>
-                <div className="badge badge-success">running</div>
-              </td>
+      {projects.length ? (
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {projects.map((project, i) => (
+              <tr key={project._id}>
+                <td>{i + 1}</td>
+                <td>
+                  <Link to={project._id} className="hover:underline">
+                    {project.name}
+                  </Link>
+                </td>
+                <td>{project.description}</td>
+                <td>
+                  <div className="badge badge-success">running</div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : null}
+
       <CreateProjectModal
         show={showModal}
         onHide={toggleModal}

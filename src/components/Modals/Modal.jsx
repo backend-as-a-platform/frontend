@@ -55,7 +55,7 @@ const Modal = ({ show: open, onHide, title, children }) => {
               <Dialog.Title as="h3" className="text-xl font-semibold leading-6">
                 {title}
                 <label
-                  className="btn btn-sm btn-ghost btn-circle absolute right-5 top-5"
+                  className="btn btn-sm btn-ghost btn-circle absolute right-5 top-7"
                   onClick={closeModal}
                 >
                   ✕

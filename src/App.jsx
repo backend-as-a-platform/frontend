@@ -13,6 +13,7 @@ import Logout from './routes/Logout';
 import FourOhFour from './routes/404';
 import Main from './components/Dashboard/Main';
 import Projects from './components/Dashboard/Projects';
+import ManageProject from './components/Dashboard/ManageProject';
 
 const App = () => {
   const [auth] = useContext(Auth);
@@ -35,6 +36,12 @@ const App = () => {
       <Route
         path="/projects"
         element={<ProtectedRoute route={<Dashboard component={Projects} />} />}
+      />
+      <Route
+        path="/projects/:projectId"
+        element={
+          <ProtectedRoute route={<Dashboard component={ManageProject} />} />
+        }
       />
       <Route path="/logout" element={<ProtectedRoute route={<Logout />} />} />
       <Route

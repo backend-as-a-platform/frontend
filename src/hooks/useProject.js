@@ -1,5 +1,22 @@
 import http, { cookies, transformResponse } from '../utils/http';
 
+const getProject = async (id) => {
+  try {
+    const { data } = await http.get(`/projects/${id}`);
+
+    return data;
+  } catch ({ response }) {
+    return;
+  }
+};
+
+const getProjects = async () => {
+  // Hope no exceptions will be thrown
+  const { data } = await http.get('/projects');
+
+  return data;
+};
+
 const createProject = async (name, description, setResult) => {
   setResult('');
 
@@ -12,15 +29,24 @@ const createProject = async (name, description, setResult) => {
 
     setResult(error);
 
-    return false;
+    return;
   }
 };
 
-const getProjects = async () => {
-  // Hope no exceptions will be thrown
-  const { data } = await http.get('/projects');
+const updateProject = async (id, name, description, setResult) => {
+  setResult('');
 
-  return data;
+  try {
+    const { data } = await http.put(`/projects/${id}`, { name, description });
+
+    return data;
+  } catch ({ response }) {
+    const error = transformResponse(response.data.reason);
+
+    setResult(error);
+
+    return;
+  }
 };
 
-export { createProject, getProjects };
+export { getProject, getProjects, createProject, updateProject };
