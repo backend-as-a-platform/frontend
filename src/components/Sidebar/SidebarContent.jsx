@@ -2,14 +2,13 @@ import React from 'react';
 import routes from './routes';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import Logo from '../Icons/Logo';
-// import * as Icons from '../../icons';
 
-function Icon({ icon }) {
+const Icon = ({ icon }) => {
   const Icon = icon;
   return <Icon />;
-}
+};
 
-function SidebarContent() {
+const SidebarContent = () => {
   const location = useLocation();
 
   return (
@@ -46,6 +45,6 @@ function SidebarContent() {
       </ul>
     </div>
   );
-}
+};
 
 export default SidebarContent;

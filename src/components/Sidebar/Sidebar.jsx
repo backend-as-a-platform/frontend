@@ -1,13 +1,13 @@
 import DesktopSidebar from './DesktopSidebar';
-import MobileSidebar from './MobileSidebar';
+// import MobileSidebar from './MobileSidebar';
 
-function Sidebar() {
+const Sidebar = () => {
   return (
     <>
       <DesktopSidebar />
       {/* <MobileSidebar /> */}
     </>
   );
-}
+};
 
 export default Sidebar;

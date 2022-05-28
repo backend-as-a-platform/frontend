@@ -1,8 +1,5 @@
-import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
 import { decodeJwt } from 'jose';
-import { Auth } from '../../contexts/Auth';
 import EyeIcon from '../Icons/EyeIcon';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { onChange } from '../../hooks/useForm';

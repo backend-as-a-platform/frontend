@@ -5,13 +5,13 @@ export const SidebarContext = createContext();
 export const SidebarProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  function toggleSidebar() {
+  const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-  }
+  };
 
-  function closeSidebar() {
+  const closeSidebar = () => {
     setIsSidebarOpen(false);
-  }
+  };
 
   const value = useMemo(
     () => ({

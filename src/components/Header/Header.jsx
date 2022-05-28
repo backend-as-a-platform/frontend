@@ -1,25 +1,15 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Theme } from '../../contexts/Theme';
 import { SidebarContext } from '../../contexts/Sidebar';
 import SearchIcon from '../Icons/SearchIcon';
-// import {
-//   SearchIcon,
-//   MoonIcon,
-//   SunIcon,
-//   BellIcon,
-//   MenuIcon,
-//   OutlinePersonIcon,
-//   OutlineCogIcon,
-//   OutlineLogoutIcon,
-// } from '../icons';
 import ToggleThemeIcon from '../Icons/ToggleThemeIcon';
 import DropdownIcon from '../Icons/DropdownIcon';
 import PersonIcon from '../Icons/PersonIcon';
 import LogoutIcon from '../Icons/LogoutIcon';
 import { Link } from 'react-router-dom';
 
-function Header() {
-  const { toggleSidebar } = useContext(SidebarContext);
+const Header = () => {
+  // const { toggleSidebar } = useContext(SidebarContext);
   const [theme, setTheme] = useContext(Theme);
   const toggleTheme = (e) => setTheme(!theme);
 
@@ -86,6 +76,6 @@ function Header() {
       </div>
     </header>
   );
-}
+};
 
 export default Header;

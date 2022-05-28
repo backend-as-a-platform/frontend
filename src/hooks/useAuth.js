@@ -40,6 +40,7 @@ const signup = async (name, email, password, setResult) => {
 
     return true;
   } catch ({ response }) {
+    console.log(response);
     const error = transformResponse(response.data.reason);
 
     setResult(error);

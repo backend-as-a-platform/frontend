@@ -1,12 +1,11 @@
-import React, { useContext, Suspense, useEffect, lazy } from 'react';
-import { Route, useLocation } from 'react-router-dom';
-
+import React, { useContext, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Header from '../components/Header/Header';
 import { SidebarContext } from '../contexts/Sidebar';
 import Container from '../components/Container/Container';
 
-function DashboardLayout({ component }) {
+const Dashboard = ({ component }) => {
   const Component = component;
 
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
@@ -31,6 +30,6 @@ function DashboardLayout({ component }) {
       </div>
     </div>
   );
-}
+};
 
-export default DashboardLayout;
+export default Dashboard;

@@ -1,14 +1,10 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
-import { Auth } from '../../contexts/Auth';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { onChange } from '../../hooks/useForm';
-import { login } from '../../hooks/useAuth';
 import { createProject } from '../../hooks/useProject';
 import {
   textLabel,
-  linkPrimary,
   textInput,
   textArea,
   checkBoxLabel,
