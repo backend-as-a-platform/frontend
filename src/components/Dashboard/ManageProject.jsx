@@ -74,6 +74,8 @@ const ManageProject = () => {
       </div>
 
       <CTA />
+
+      <PageTitle topMargin={1}>Forms</PageTitle>
     </>
   );
 };
