@@ -65,6 +65,7 @@ const ManageProject = () => {
               onHide={toggleArchiveModal}
             />
             <DeleteProjectModal
+              id={projectId}
               show={showDeleteModal}
               onHide={toggleDeleteModal}
             />

@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PageTitle from '../Typography/PageTitle';
 import CTA from '../CTA/CTA';
 import InfoCard from '../Cards/InfoCard';
-import DashboardTable from '../Tables/DashboardTable';
+import { getProjects } from '../../hooks/useProject';
+import ProjectsTable from '../Tables/ProjectsTable';
 
-function Dashboard() {
-  const [page, setPage] = useState(1);
-  const [data, setData] = useState([]);
+const Dashboard = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(async () => {
+    setProjects(await getProjects());
+  }, []);
 
   return (
     <>
@@ -50,44 +54,11 @@ function Dashboard() {
       </div>
 
       {/* <DashboardTable /> */}
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>1</th>
-            <td>student-management</td>
-            <td>Management system for CSE students</td>
-            <td>
-              <div className="badge badge-success">running</div>
-            </td>
-          </tr>
-          <tr>
-            <th>2</th>
-            <td>event-management</td>
-            <td>Management system for college events</td>
-            <td>
-              <div className="badge badge-success">running</div>
-            </td>
-          </tr>
-          <tr>
-            <th>3</th>
-            <td>tech-fest</td>
-            <td>Asthra 2022</td>
-            <td>
-              <div className="badge badge-error">archived</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      {projects.length ? (
+        <ProjectsTable projects={projects} readonly={true} />
+      ) : null}
     </>
   );
-}
+};
 
 export default Dashboard;

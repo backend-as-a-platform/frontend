@@ -1,4 +1,4 @@
-import http, { cookies, transformResponse } from '../utils/http';
+import http, { transformResponse } from '../utils/http';
 
 const getProject = async (id) => {
   try {
@@ -49,4 +49,11 @@ const updateProject = async (id, name, description, setResult) => {
   }
 };
 
-export { getProject, getProjects, createProject, updateProject };
+const deleteProject = async (id) => {
+  // Hope no exceptions will be thrown
+  const { data } = await http.delete(`/projects/${id}`);
+
+  return data;
+};
+
+export { getProject, getProjects, createProject, updateProject, deleteProject };
