@@ -3,6 +3,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        'poppins': ['Poppins', 'sans-serif'],
         'nunito-sans': ['"Nunito Sans"'],
       },
       boxShadow: {
