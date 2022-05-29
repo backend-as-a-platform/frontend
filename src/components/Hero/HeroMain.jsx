@@ -16,7 +16,10 @@ const HeroMain = () => (
       }
     />
     <div className="max-w-3xl mx-auto">
-      <HeroDescription text="Low code application development platform specifically for backends." />
+      <HeroDescription
+        text="Our landing page template works on all devices, so you only have to set it
+    up once, and get beautiful results forever."
+      />
       <HeroLinks />
     </div>
     <HeroImage />
