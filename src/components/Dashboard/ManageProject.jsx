@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { getProject } from '../../hooks/useProject';
+import { getForms } from '../../hooks/useForm';
 import CTA from '../CTA/CTA';
 import ArchiveProjectModal from '../Modals/ArchiveProjectModal';
+import CreateFormModal from '../Modals/FormModal';
 import DeleteProjectModal from '../Modals/DeleteProjectModal';
 import EditProjectModal from '../Modals/EditProjectModal';
 import PageTitle from '../Typography/PageTitle';
-import PageButton from './PageButton';
+import PageButton from '../Typography/PageButton';
+import SectionTitle from '../Typography/SectionTitle';
+import SectionButton from '../Typography/SectionButton';
+import FormsTable from '../Tables/FormsTable';
 
 const ManageProject = () => {
   const [name, setName] = useState('');
@@ -14,11 +19,15 @@ const ManageProject = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCreateFormModal, setShowCreateFormModal] = useState(false);
+  const [forms, setForms] = useState([]);
   const navigate = useNavigate();
   const { projectId } = useParams();
   const toggleEditModal = (e) => setShowEditModal(!showEditModal);
   const toggleArchiveModal = (e) => setShowArchiveModal(!showArchiveModal);
   const toggleDeleteModal = (e) => setShowDeleteModal(!showDeleteModal);
+  const toggleCreateFormModal = (e) =>
+    setShowCreateFormModal(!showCreateFormModal);
 
   useEffect(async () => {
     const project = await getProject(projectId);
@@ -26,6 +35,8 @@ const ManageProject = () => {
     if (project) {
       setName(project.name);
       setDescription(project.description);
+
+      setForms(await getForms(projectId));
     } else {
       navigate('/404');
     }
@@ -75,7 +86,17 @@ const ManageProject = () => {
 
       <CTA />
 
-      <PageTitle topMargin={1}>Forms</PageTitle>
+      <div>
+        <SectionTitle>Forms</SectionTitle>
+        <SectionButton
+          style="primary"
+          label="Create form"
+          link={true}
+          to="forms/new"
+        />
+      </div>
+
+      {forms.length ? <FormsTable forms={forms} /> : null}
     </>
   );
 };

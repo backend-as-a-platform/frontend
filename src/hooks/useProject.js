@@ -5,16 +5,19 @@ const getProject = async (id) => {
     const { data } = await http.get(`/projects/${id}`);
 
     return data;
-  } catch ({ response }) {
+  } catch (_) {
     return;
   }
 };
 
 const getProjects = async () => {
-  // Hope no exceptions will be thrown
-  const { data } = await http.get('/projects');
+  try {
+    const { data } = await http.get('/projects');
 
-  return data;
+    return data;
+  } catch (_) {
+    return;
+  }
 };
 
 const createProject = async (name, description, setResult) => {
@@ -50,10 +53,13 @@ const updateProject = async (id, name, description, setResult) => {
 };
 
 const deleteProject = async (id) => {
-  // Hope no exceptions will be thrown
-  const { data } = await http.delete(`/projects/${id}`);
+  try {
+    const { data } = await http.delete(`/projects/${id}`);
 
-  return data;
+    return data;
+  } catch (_) {
+    return;
+  }
 };
 
 export { getProject, getProjects, createProject, updateProject, deleteProject };

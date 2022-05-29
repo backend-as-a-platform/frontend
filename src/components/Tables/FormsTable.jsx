@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const ProjectsTable = ({ projects, readonly }) => {
+const FormsTable = ({ forms }) => {
   return (
     <table className="table w-full">
       <thead>
@@ -12,19 +12,15 @@ const ProjectsTable = ({ projects, readonly }) => {
         </tr>
       </thead>
       <tbody>
-        {projects.map((project, i) => (
-          <tr key={project._id} className="hover">
+        {forms.map((form, i) => (
+          <tr key={form._id} className="hover">
             <td>{i + 1}</td>
             <td>
-              {readonly ? (
-                project.name
-              ) : (
-                <Link to={project._id} className="hover:underline">
-                  {project.name}
-                </Link>
-              )}
+              <Link to={`forms/${form._id}`} className="hover:underline">
+                {form.name}
+              </Link>
             </td>
-            <td>{project.description}</td>
+            <td>{form.description}</td>
             <td>
               <div className="badge badge-success">active</div>
             </td>
@@ -35,4 +31,4 @@ const ProjectsTable = ({ projects, readonly }) => {
   );
 };
 
-export default ProjectsTable;
+export default FormsTable;

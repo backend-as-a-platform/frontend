@@ -40,7 +40,6 @@ const signup = async (name, email, password, setResult) => {
 
     return true;
   } catch ({ response }) {
-    console.log(response);
     const error = transformResponse(response.data.reason);
 
     setResult(error);
@@ -53,7 +52,6 @@ const logout = async (all) => {
   cookies.remove('auth');
 
   try {
-    // ${all ? '/all' : ''}
     await http.get(`/users/logout/all`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -65,5 +63,7 @@ const logout = async (all) => {
     return false;
   }
 };
+
+const getProfile = async () => {};
 
 export { login, signup, logout };

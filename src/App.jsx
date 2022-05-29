@@ -14,6 +14,7 @@ import FourOhFour from './routes/404';
 import Main from './components/Dashboard/Main';
 import Projects from './components/Dashboard/Projects';
 import ManageProject from './components/Dashboard/ManageProject';
+import CreateForm from './components/Dashboard/CreateForm';
 
 const App = () => {
   const [auth] = useContext(Auth);
@@ -41,6 +42,12 @@ const App = () => {
         path="/projects/:projectId"
         element={
           <ProtectedRoute route={<Dashboard component={ManageProject} />} />
+        }
+      />
+      <Route
+        path="/projects/:projectId/forms/new"
+        element={
+          <ProtectedRoute route={<Dashboard component={CreateForm} />} />
         }
       />
       <Route path="/logout" element={<ProtectedRoute route={<Logout />} />} />

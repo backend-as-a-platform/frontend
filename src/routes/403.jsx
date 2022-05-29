@@ -4,7 +4,7 @@ const FourOhThree = () => {
   return (
     <ClientError
       code="403"
-      title="Huh! Not that easy."
+      title="Huh! Not so fast."
       body="You are not authorized to view this page."
     />
   );

@@ -1,6 +1,6 @@
 import Modal from './Modal';
 
-const DeleteProjectModal = ({ show, onHide }) => {
+const ArchiveProjectModal = ({ show, onHide }) => {
   return (
     <Modal title="Are you sure?" show={show} onHide={onHide}>
       <h1>
@@ -11,4 +11,4 @@ const DeleteProjectModal = ({ show, onHide }) => {
   );
 };
 
-export default DeleteProjectModal;
+export default ArchiveProjectModal;

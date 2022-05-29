@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PageTitle from '../Typography/PageTitle';
 import CTA from '../CTA/CTA';
-import PageButton from './PageButton';
+import PageButton from '../Typography/PageButton';
 import CreateProjectModal from '../Modals/CreateProjectModal';
 import ProjectsTable from '../Tables/ProjectsTable';
 import { getProjects } from '../../hooks/useProject';
