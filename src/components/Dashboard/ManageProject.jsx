@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
+
 import { getProject } from '../../hooks/useProject';
 import CTA from '../CTA/CTA';
 import ArchiveProjectModal from '../Modals/ArchiveProjectModal';
