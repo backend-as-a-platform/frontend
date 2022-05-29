@@ -5,7 +5,7 @@ const Workflows = () => (
     <WorkflowCard
       badge="Step 1"
       title="Create a new project"
-      description="Signup/Login into the BaaP platform. On the dashboard page, click on create project and enter details of your project and click the submit  button.."
+      description="Signup/Login into the BaaP platform. On the dashboard page, click on create project and enter details of your project and click the submit  button."
       image="https://open.cruip.com/static/media/features-split-image-01.d9cb99ce.png"
     />
     <WorkflowCard

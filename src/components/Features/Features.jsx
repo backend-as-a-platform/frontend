@@ -16,7 +16,9 @@ const Features = () => (
         <FeatureCard
           icon={FeatureOneIcon}
           title="Opensource"
-          content="Designed to be publicly accessible."
+          content="Designed to be publicly accessible forever
+          
+          ."
         />
       </div>
       <div
