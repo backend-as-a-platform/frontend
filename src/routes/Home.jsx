@@ -51,8 +51,10 @@ const Home = () => {
       <HeroDesign />
       <Features />
       <HeroSimple
-        title="Visual approach to software development"
-        description="Visual development environment that allows  users to create apps through methods such as drag-and-drop."
+        title="Workflow that is super easy"
+        description="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+          officia deserunt mollit anim id est laborum semper quis lectus nulla
+          at volutpat diam ut venenatis."
       />
       <Workflows />
       <HeroEnd title="Don't think, just start!" />
