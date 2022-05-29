@@ -15,8 +15,8 @@ const Features = () => (
       >
         <FeatureCard
           icon={FeatureOneIcon}
-          title="Simple"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          title="Opensource"
+          content="Designed to be publicly accessible."
         />
       </div>
       <div
@@ -26,8 +26,8 @@ const Features = () => (
       >
         <FeatureCard
           icon={FeatureTwoIcon}
-          title="Robust"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          title="Build"
+          content="Elevate app development with fully managed backend configuration."
         />
       </div>
       <div
@@ -37,8 +37,8 @@ const Features = () => (
       >
         <FeatureCard
           icon={FeatureThreeIcon}
-          title="Powerful"
-          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          title="Customizable"
+          content="Easily customize the API according to the needs."
         />
       </div>
     </div>

@@ -5,8 +5,9 @@ const HeroDesign = () => (
       data-aos="zoom-y-out"
       data-aos-delay="300"
     >
-      <span className="font-extrabold">Clean and simple design,</span> comes
-      with everything to get started.
+      <span className="font-extrabold">Abstract and automate every step ,</span>{' '}
+      of the application lifecycle to streamline the delivery of a variety of
+      solutions.
     </h1>
   </div>
 );
