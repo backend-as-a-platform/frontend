@@ -9,6 +9,26 @@ const onChange = (e, setter, resetError) => {
   setter(e.target.value);
 };
 
+const getForm = async (projectId, formId) => {
+  try {
+    const { data } = await http.get(`/projects/${projectId}/forms/${formId}`);
+
+    return data;
+  } catch (_) {
+    return;
+  }
+};
+
+const getForms = async (projectId) => {
+  try {
+    const { data } = await http.get(`/projects/${projectId}/forms`);
+
+    return data;
+  } catch (_) {
+    return;
+  }
+};
+
 const validateForm = async (projectId, name, description, setResult) => {
   try {
     const { data } = await http.post(`/projects/${projectId}/forms/new`, {
@@ -27,14 +47,26 @@ const validateForm = async (projectId, name, description, setResult) => {
   }
 };
 
-const getForms = async (projectId) => {
+const createForm = async (projectId, name, description, fields, setResult) => {
   try {
-    const { data } = await http.get(`/projects/${projectId}/forms`);
+    const { data } = await http.post(`/projects/${projectId}/forms/new`, {
+      name,
+      description,
+      fields,
+    });
+
+    setResult(true, 'Form created succesfully,');
 
     return data;
-  } catch (_) {
+  } catch ({ response }) {
+    if (response.data.reason.indexOf("'fields'") === 0) {
+      setResult(false, 'Fields cannot be empty.');
+    } else {
+      setResult(false, 'Failed to create form, please try again.');
+    }
+
     return;
   }
 };
 
-export { onChange, validateForm, getForms };
+export { onChange, getForm, getForms, validateForm, createForm };

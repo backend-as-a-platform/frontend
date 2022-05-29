@@ -15,6 +15,7 @@ import Main from './components/Dashboard/Main';
 import Projects from './components/Dashboard/Projects';
 import ManageProject from './components/Dashboard/ManageProject';
 import CreateForm from './components/Dashboard/CreateForm';
+import ManageForm from './components/Dashboard/ManageForm';
 
 const App = () => {
   const [auth] = useContext(Auth);
@@ -48,6 +49,12 @@ const App = () => {
         path="/projects/:projectId/forms/new"
         element={
           <ProtectedRoute route={<Dashboard component={CreateForm} />} />
+        }
+      />
+      <Route
+        path="/projects/:projectId/forms/:formId"
+        element={
+          <ProtectedRoute route={<Dashboard component={ManageForm} />} />
         }
       />
       <Route path="/logout" element={<ProtectedRoute route={<Logout />} />} />

@@ -2,7 +2,7 @@ import { Component, createRef } from 'react';
 import CTA from '../CTA/CTA';
 import ValidateFormModal, { FormResponseModal } from '../Modals/FormModal';
 import PageTitle from '../Typography/PageTitle';
-import http from '../../utils/http';
+import { createForm } from '../../hooks/useForm';
 
 class FormBuilder extends Component {
   constructor(props) {
@@ -38,32 +38,9 @@ class FormBuilder extends Component {
         const fields = JSON.parse(formData);
         const project = this.props.project;
 
-        try {
-          const { status } = await http.post(`projects/${project}/forms/new`, {
-            name,
-            description,
-            fields,
-          });
+        await createForm(project, name, description, fields, this.setResult);
 
-          this.setState({ showResponseModal: true, formCreated: true });
-
-          if (status === 200) {
-            this.setState({ modalBody: 'Form created successfully.' });
-          }
-        } catch ({ response }) {
-          this.setState({ showResponseModal: true });
-
-          if (
-            response.data.reason &&
-            response.data.reason.indexOf("'fields'") === 0
-          ) {
-            this.setState({ modalBody: 'Fields cannot be empty.' });
-          } else {
-            this.setState({
-              modalBody: 'Failed to create form, please try again.',
-            });
-          }
-        }
+        this.toggleFormResponseModal();
       },
     };
   }
@@ -81,13 +58,16 @@ class FormBuilder extends Component {
 
   onSuccess = (newName, newDescription) => {
     this.setState({
-      showCreateModal: false,
       name: newName,
       description: newDescription,
+      showCreateModal: false,
     });
   };
 
-  toggleFormResponseModal = (e) => this.setState({ showResponseModal: false });
+  setResult = (formCreated, modalBody) =>
+    this.setState({ formCreated, modalBody });
+  toggleFormResponseModal = () =>
+    this.setState({ showResponseModal: !this.state.showResponseModal });
 
   render() {
     return (

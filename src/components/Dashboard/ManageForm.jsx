@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-
-import { getProject } from '../../hooks/useProject';
-import { getForms } from '../../hooks/useForm';
+import { getForm } from '../../hooks/useForm';
 import CTA from '../CTA/CTA';
 import ArchiveProjectModal from '../Modals/ArchiveProjectModal';
 import CreateFormModal from '../Modals/FormModal';
@@ -12,30 +10,29 @@ import PageTitle from '../Typography/PageTitle';
 import PageButton from '../Typography/PageButton';
 import SectionTitle from '../Typography/SectionTitle';
 import SectionButton from '../Typography/SectionButton';
-import FormsTable from '../Tables/FormsTable';
 
-const ManageProject = () => {
+const ManageForm = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [showEditModal, setShowEditModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showCreateFormModal, setShowCreateFormModal] = useState(false);
-  const [forms, setForms] = useState([]);
+  const [records, setRecords] = useState([]);
   const navigate = useNavigate();
-  const { projectId } = useParams();
+  const { projectId, formId } = useParams();
   const toggleEditModal = (e) => setShowEditModal(!showEditModal);
   const toggleArchiveModal = (e) => setShowArchiveModal(!showArchiveModal);
   const toggleDeleteModal = (e) => setShowDeleteModal(!showDeleteModal);
 
   useEffect(async () => {
-    const project = await getProject(projectId);
+    const form = await getForm(projectId, formId);
 
-    if (project) {
-      setName(project.name);
-      setDescription(project.description);
+    if (form) {
+      setName(form.name);
+      setDescription(form.description);
 
-      setForms(await getForms(projectId));
+      // setRecords(await getRecords(projectId, formId));
     } else {
       navigate('/404');
     }
@@ -85,19 +82,19 @@ const ManageProject = () => {
 
       <CTA />
 
-      <div>
+      {/* <div>
         <SectionTitle>Forms</SectionTitle>
         <SectionButton
           style="primary"
           label="Create form"
           link={true}
-          to="forms/new"
+          to="records/new"
         />
-      </div>
+      </div> */}
 
-      {forms.length ? <FormsTable forms={forms} /> : null}
+      {/* {records.length ? <FormsTable records={records} /> : null} */}
     </>
   );
 };
 
-export default ManageProject;
+export default ManageForm;
