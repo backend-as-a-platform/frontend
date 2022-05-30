@@ -1,22 +1,19 @@
 import { Component, createRef } from 'react';
 import CTA from '../CTA/CTA';
-import ValidateFormModal, { FormResponseModal } from '../Modals/FormModal';
+import { FormResponseModal } from '../Modals/FormModal';
 import PageTitle from '../Typography/PageTitle';
-import { createForm } from '../../hooks/useForm';
+import { updateForm } from '../../hooks/useForm';
 
-class FormBuilder extends Component {
+class FormEditor extends Component {
   constructor(props) {
     super(props);
 
     this.formBuilder = createRef();
 
     this.state = {
-      name: '',
-      description: '',
-      showCreateModal: true,
       showResponseModal: false,
+      formUpdated: false,
       modalBody: '',
-      formCreated: false,
     };
 
     this.formOptions = {
@@ -37,11 +34,10 @@ class FormBuilder extends Component {
         const { name, description } = this.state;
         const fields = JSON.parse(formData);
 
-        await createForm(
+        await updateForm(
           this.props.project,
-          name,
-          description,
-          fields,
+          this.props.form,
+          { fields },
           this.setResult
         );
 
@@ -50,50 +46,38 @@ class FormBuilder extends Component {
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (
-      !this.state.showCreateModal &&
       !this.state.showResponseModal &&
       !this.state.modalBody &&
-      !this.state.formCreated
+      this.props.fields.length &&
+      prevProps.fields !== this.props.fields
     ) {
+      this.formOptions.formData = this.props.fields;
+
       $(this.formBuilder.current).formBuilder(this.formOptions);
     }
   }
 
   onSuccess = (newName, newDescription) => {
-    this.setState({
-      name: newName,
-      description: newDescription,
-      showCreateModal: false,
-    });
+    this.setState({ name: newName, description: newDescription });
   };
 
-  setResult = (formCreated, modalBody) =>
-    this.setState({ formCreated, modalBody });
+  setResult = (formUpdated, modalBody) =>
+    this.setState({ formUpdated, modalBody });
   toggleFormResponseModal = () =>
     this.setState({ showResponseModal: !this.state.showResponseModal });
 
   render() {
     return (
       <>
-        <div>
-          <PageTitle>Create form</PageTitle>
-        </div>
-
-        <CTA />
-
         <div id="form-builder" ref={this.formBuilder} />
 
-        <ValidateFormModal
-          show={this.state.showCreateModal}
-          onSuccess={this.onSuccess}
-        />
         <FormResponseModal
           title="Status"
           body={this.state.modalBody}
           show={this.state.showResponseModal}
-          created={this.state.formCreated}
+          created={this.state.formUpdated}
           onHide={this.toggleFormResponseModal}
         />
       </>
@@ -101,4 +85,4 @@ class FormBuilder extends Component {
   }
 }
 
-export default FormBuilder;
+export default FormEditor;

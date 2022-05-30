@@ -5,15 +5,18 @@ import CTA from '../CTA/CTA';
 import EditModal from '../Modals/EditModal';
 import ArchiveModal from '../Modals/ArchiveModal';
 import DeleteModal from '../Modals/DeleteModal';
+import { PublishFormModal } from '../Modals/FormModal';
 import PageTitle from '../Typography/PageTitle';
 import PageButton from '../Typography/PageButton';
-import SectionTitle from '../Typography/SectionTitle';
-import SectionButton from '../Typography/SectionButton';
+import FormPublishAlert from '../Alerts/FormPublishAlert';
+import EditForm from '../Dashboard/EditForm';
 
 const ManageForm = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [fields, setFields] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showPublishModal, setShowPublishModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showCreateFormModal, setShowCreateFormModal] = useState(false);
@@ -21,6 +24,7 @@ const ManageForm = () => {
   const navigate = useNavigate();
   const { projectId, formId } = useParams();
   const toggleEditModal = (e) => setShowEditModal(!showEditModal);
+  const togglePublishModal = (e) => setShowPublishModal(!showPublishModal);
   const toggleArchiveModal = (e) => setShowArchiveModal(!showArchiveModal);
   const toggleDeleteModal = (e) => setShowDeleteModal(!showDeleteModal);
 
@@ -30,6 +34,7 @@ const ManageForm = () => {
     if (form) {
       setName(form.name);
       setDescription(form.description);
+      setFields(form.fields);
 
       // setRecords(await getRecords(projectId, formId));
     } else {
@@ -54,6 +59,11 @@ const ManageForm = () => {
               onClick={toggleArchiveModal}
             />
             <PageButton
+              style="info"
+              label="Publish"
+              onClick={togglePublishModal}
+            />
+            <PageButton
               style="primary"
               label="Edit"
               onClick={toggleEditModal}
@@ -67,6 +77,7 @@ const ManageForm = () => {
               setName={setName}
               setDescription={setDescription}
             />
+            <PublishFormModal formId={formId} />
             <ArchiveModal
               type="form"
               show={showArchiveModal}
@@ -84,15 +95,10 @@ const ManageForm = () => {
 
       <CTA />
 
-      {/* <div>
-        <SectionTitle>Forms</SectionTitle>
-        <SectionButton
-          style="primary"
-          label="Create form"
-          link={true}
-          to="records/new"
-        />
-      </div> */}
+      {/* Todo: add form publish feature in backend */}
+      {true ? <FormPublishAlert /> : null}
+
+      <EditForm fields={fields} />
 
       {/* {records.length ? <FormsTable records={records} /> : null} */}
     </>

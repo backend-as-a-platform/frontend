@@ -79,11 +79,23 @@ const updateForm = async (projectId, formId, data, setResult) => {
       fields,
     });
 
+    if (fields) {
+      setResult(true, 'Form updated succesfully.');
+    }
+
     return data;
   } catch ({ response }) {
-    const error = transformResponse(response.data.reason);
+    if (fields) {
+      if (response.data.reason.indexOf("'fields'") === 0) {
+        setResult(false, 'Fields cannot be empty.');
+      } else {
+        setResult(false, 'Failed to update form, please try again.');
+      }
+    } else {
+      const error = transformResponse(response.data.reason);
 
-    setResult(error);
+      setResult(error);
+    }
 
     return;
   }

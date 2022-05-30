@@ -23,7 +23,7 @@ const FormResponseModal = ({ show, onHide, title, body, created }) => {
   };
 
   return (
-    <Modal title={title} show={show} onHide={onHide}>
+    <Modal title={title} show={show} onHide={onClick}>
       <p className="text-lg mb-5">{body}</p>
       <button className="w-full btn btn-primary" onClick={onClick}>
         Continue
@@ -32,5 +32,9 @@ const FormResponseModal = ({ show, onHide, title, body, created }) => {
   );
 };
 
+const PublishFormModal = ({ formId }) => {
+  return null;
+};
+
 export default ValidateFormModal;
-export { FormResponseModal };
+export { FormResponseModal, PublishFormModal };
