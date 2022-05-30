@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { getForm } from '../../hooks/useForm';
 import CTA from '../CTA/CTA';
-import ArchiveProjectModal from '../Modals/ArchiveProjectModal';
-import CreateFormModal from '../Modals/FormModal';
-import DeleteProjectModal from '../Modals/DeleteProjectModal';
-import EditProjectModal from '../Modals/EditProjectModal';
+import EditModal from '../Modals/EditModal';
+import ArchiveModal from '../Modals/ArchiveModal';
+import DeleteModal from '../Modals/DeleteModal';
 import PageTitle from '../Typography/PageTitle';
 import PageButton from '../Typography/PageButton';
 import SectionTitle from '../Typography/SectionTitle';
@@ -59,7 +58,8 @@ const ManageForm = () => {
               label="Edit"
               onClick={toggleEditModal}
             />
-            <EditProjectModal
+            <EditModal
+              type="form"
               name={name}
               description={description}
               show={showEditModal}
@@ -67,12 +67,14 @@ const ManageForm = () => {
               setName={setName}
               setDescription={setDescription}
             />
-            <ArchiveProjectModal
+            <ArchiveModal
+              type="form"
               show={showArchiveModal}
               onHide={toggleArchiveModal}
             />
-            <DeleteProjectModal
-              id={projectId}
+            <DeleteModal
+              projectId={projectId}
+              formId={formId}
               show={showDeleteModal}
               onHide={toggleDeleteModal}
             />

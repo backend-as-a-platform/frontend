@@ -55,7 +55,7 @@ const createForm = async (projectId, name, description, fields, setResult) => {
       fields,
     });
 
-    setResult(true, 'Form created succesfully,');
+    setResult(true, 'Form created succesfully.');
 
     return data;
   } catch ({ response }) {
@@ -69,4 +69,44 @@ const createForm = async (projectId, name, description, fields, setResult) => {
   }
 };
 
-export { onChange, getForm, getForms, validateForm, createForm };
+const updateForm = async (projectId, formId, data, setResult) => {
+  const { name, description, fields } = data;
+
+  try {
+    const { data } = await http.put(`/projects/${projectId}/forms/${formId}`, {
+      name,
+      description,
+      fields,
+    });
+
+    return data;
+  } catch ({ response }) {
+    const error = transformResponse(response.data.reason);
+
+    setResult(error);
+
+    return;
+  }
+};
+
+const deleteForm = async (projectId, formId) => {
+  try {
+    const { data } = await http.delete(
+      `/projects/${projectId}/forms/${formId}`
+    );
+
+    return data;
+  } catch (_) {
+    return;
+  }
+};
+
+export {
+  onChange,
+  getForm,
+  getForms,
+  validateForm,
+  createForm,
+  updateForm,
+  deleteForm,
+};

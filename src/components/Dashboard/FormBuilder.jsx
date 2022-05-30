@@ -47,10 +47,10 @@ class FormBuilder extends Component {
 
   componentDidUpdate() {
     if (
-      this.state.name &&
       !this.state.showCreateModal &&
       !this.state.showResponseModal &&
-      !this.state.modalBody
+      !this.state.modalBody &&
+      !this.state.formCreated
     ) {
       $(this.formBuilder.current).formBuilder(this.formOptions);
     }

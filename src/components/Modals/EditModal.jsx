@@ -1,7 +1,9 @@
 import Modal from './Modal';
 import EditProjectForm from '../Forms/EditProjectForm';
+import EditForm from '../Forms/EditForm';
 
-const EditProjectModal = ({
+const EditModal = ({
+  type,
   name,
   description,
   show,
@@ -9,9 +11,11 @@ const EditProjectModal = ({
   setName,
   setDescription,
 }) => {
+  const Component = type === 'project' ? EditProjectForm : EditForm;
+
   return (
-    <Modal title="Edit project" show={show} onHide={onHide}>
-      <EditProjectForm
+    <Modal title={`Edit ${type}`} show={show} onHide={onHide}>
+      <Component
         name={name}
         description={description}
         onSuccess={onHide}
@@ -22,4 +26,4 @@ const EditProjectModal = ({
   );
 };
 
-export default EditProjectModal;
+export default EditModal;
