@@ -18,4 +18,4 @@ const transformResponse = (response) => {
 };
 
 export default http;
-export { cookies, authToken, testError, transformResponse };
+export { cookies, testError, transformResponse };

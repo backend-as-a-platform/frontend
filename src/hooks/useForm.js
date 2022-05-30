@@ -1,12 +1,22 @@
 import http, { transformResponse } from '../utils/http';
 
 // Not related to BaaP custom forms
+// 1
 const onChange = (e, setter, resetError) => {
   if (resetError) {
     resetError('');
   }
 
   setter(e.target.value);
+};
+
+// 2
+const onFileChange = (e, setter, resetError) => {
+  if (resetError) {
+    resetError('');
+  }
+
+  setter(e.target.files[0]);
 };
 
 const getForm = async (projectId, formId) => {
@@ -115,6 +125,7 @@ const deleteForm = async (projectId, formId) => {
 
 export {
   onChange,
+  onFileChange,
   getForm,
   getForms,
   validateForm,

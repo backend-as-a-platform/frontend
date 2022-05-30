@@ -1,17 +1,33 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Theme } from '../../contexts/Theme';
+import { Auth } from '../../contexts/Auth';
 import { SidebarContext } from '../../contexts/Sidebar';
+import { checkAvatar, getAvatarUri } from '../../hooks/useAuth';
+import AvatarIcon from '../Icons/AvatarIcon';
 import SearchIcon from '../Icons/SearchIcon';
 import ToggleThemeIcon from '../Icons/ToggleThemeIcon';
 import DropdownIcon from '../Icons/DropdownIcon';
 import PersonIcon from '../Icons/PersonIcon';
 import LogoutIcon from '../Icons/LogoutIcon';
 import { Link } from 'react-router-dom';
+import EditProfileModal from '../Modals/EditProfileModal';
 
 const Header = () => {
   // const { toggleSidebar } = useContext(SidebarContext);
   const [theme, setTheme] = useContext(Theme);
+  const [auth] = useContext(Auth);
+  const [avatarUri, setAvatarUri] = useState('');
+  const [showEditProfileModal, setShowEditProfileModal] = useState(false);
   const toggleTheme = (e) => setTheme(!theme);
+  const toggleShowEditProfileModal = (e) =>
+    setShowEditProfileModal(!showEditProfileModal);
+
+  useEffect(async () => {
+    const avatarExists = await checkAvatar(auth._id);
+    if (avatarExists) {
+      setAvatarUri(getAvatarUri(auth._id));
+    }
+  }, [auth.avatar]);
 
   return (
     <header className="z-25 py-4 bg-white shadow-bottom dark:bg-gray-800">
@@ -35,11 +51,12 @@ const Header = () => {
             />
           </div>
         </div>
+
         <ul className="flex items-center flex-shrink-0 space-x-6">
           <li className="flex">
             <ToggleThemeIcon toggle={toggleTheme} size={6} />
           </li>
-
+          <li className="text-gray-700 dark:text-gray-100">{auth.name}</li>
           <li className="relative">
             <button className="rounded-full focus:shadow-outline-purple focus:outline-none">
               <div className="avatar align-middle dropdown dropdown-end">
@@ -47,17 +64,18 @@ const Header = () => {
                   tabIndex="0"
                   className="w-9 rounded-full border-gray-500 border-2"
                 >
-                  <img
-                    src="https://api.lorem.space/image/face?hash=33791"
-                    alt="Avatar"
-                  />
+                  {avatarUri ? (
+                    <img src={avatarUri} alt="Avatar" />
+                  ) : (
+                    <AvatarIcon />
+                  )}
                 </div>
                 <ul
                   tabIndex="0"
                   className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 text-sm text-gray-500 dark:text-gray-400 font-semibold"
                 >
                   <li>
-                    <a>
+                    <a onClick={toggleShowEditProfileModal}>
                       <PersonIcon size={4} />
                       <span>Profile</span>
                     </a>
@@ -73,6 +91,13 @@ const Header = () => {
             </button>
           </li>
         </ul>
+
+        <EditProfileModal
+          show={showEditProfileModal}
+          onHide={toggleShowEditProfileModal}
+          name={auth.name}
+          email={auth.email}
+        />
       </div>
     </header>
   );

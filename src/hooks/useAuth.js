@@ -20,7 +20,7 @@ const login = async (email, password, remember, setResult) => {
 
     setResult(error);
 
-    return false;
+    return;
   }
 };
 
@@ -44,7 +44,7 @@ const signup = async (name, email, password, setResult) => {
 
     setResult(error);
 
-    return false;
+    return;
   }
 };
 
@@ -60,10 +60,76 @@ const logout = async (all) => {
 
     return true;
   } catch ({ response }) {
-    return false;
+    return;
   }
 };
 
-const getProfile = async () => {};
+const getProfile = async () => {
+  try {
+    const { data } = await http.get('/users/profile');
 
-export { login, signup, logout };
+    return data;
+  } catch (_) {
+    return;
+  }
+};
+
+const updateProfile = async (name, email, password, avatar, setResult) => {
+  setResult('');
+
+  try {
+    const { data } = await http.put(`/users/profile`, {
+      name: name || undefined,
+      email: email || undefined,
+      password: password || undefined,
+    });
+
+    if (avatar instanceof File) {
+      const formData = new FormData();
+      const config = { headers: { 'content-type': 'multipart/form-data' } };
+
+      formData.append('avatar', avatar, avatar.name);
+
+      const { result } = await http.post(
+        '/users/profile/avatar',
+        formData,
+        config
+      );
+
+      data.avatar = avatar;
+    }
+
+    return data;
+  } catch ({ response }) {
+    const error = transformResponse(response.data.reason);
+
+    setResult(error);
+
+    return;
+  }
+};
+
+const checkAvatar = async (userId) => {
+  try {
+    await http.get(`/users/${userId}/avatar.png`);
+
+    return true;
+  } catch (_) {
+    return;
+  }
+};
+
+const getAvatarUri = (userId) =>
+  `${
+    import.meta.env.VITE_BACKEND_URI
+  }/users/${userId}/avatar.png?t=${new Date().getTime()}`;
+
+export {
+  login,
+  signup,
+  logout,
+  getProfile,
+  updateProfile,
+  checkAvatar,
+  getAvatarUri,
+};

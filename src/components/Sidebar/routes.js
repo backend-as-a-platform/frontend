@@ -19,11 +19,6 @@ const routes = [
     icon: FormsIcon,
     name: 'Forms',
   },
-  {
-    path: '/profile',
-    icon: PersonIcon,
-    name: 'Profile',
-  },
 ];
 
 export default routes;

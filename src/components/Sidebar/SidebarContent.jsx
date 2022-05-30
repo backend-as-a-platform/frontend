@@ -1,7 +1,10 @@
-import React from 'react';
+import { useContext, useState } from 'react';
 import routes from './routes';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { Auth } from '../../contexts/Auth';
 import Logo from '../Icons/Logo';
+import PersonIcon from '../Icons/PersonIcon';
+import EditProfileModal from '../Modals/EditProfileModal';
 
 const Icon = ({ icon }) => {
   const Icon = icon;
@@ -9,7 +12,11 @@ const Icon = ({ icon }) => {
 };
 
 const SidebarContent = () => {
+  const [auth] = useContext(Auth);
   const location = useLocation();
+  const [showEditProfileModal, setShowEditProfileModal] = useState(false);
+  const toggleShowEditProfileModal = (e) =>
+    setShowEditProfileModal(!showEditProfileModal);
 
   return (
     <div className="py-4 text-gray-500 dark:text-gray-400">
@@ -42,7 +49,23 @@ const SidebarContent = () => {
             </NavLink>
           </li>
         ))}
+        <li className="relative px-6 py-3">
+          <a
+            onClick={toggleShowEditProfileModal}
+            className="cursor-pointer inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+          >
+            <PersonIcon />
+            <span className="ml-4">Profile</span>
+          </a>
+        </li>
       </ul>
+
+      <EditProfileModal
+        show={showEditProfileModal}
+        onHide={toggleShowEditProfileModal}
+        name={auth.name}
+        email={auth.email}
+      />
     </div>
   );
 };
