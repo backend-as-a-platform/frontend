@@ -22,7 +22,13 @@ const FormsTable = ({ forms }) => {
             </td>
             <td>{form.description}</td>
             <td>
-              <div className="badge badge-success">active</div>
+              <div
+                className={
+                  form.active ? 'badge badge-success' : 'badge badge-warning'
+                }
+              >
+                {form.active ? 'active' : 'archive'}
+              </div>
             </td>
           </tr>
         ))}

@@ -5,7 +5,7 @@ import { deleteForm } from '../../hooks/useForm';
 import SpinnerIcon from '../Icons/SpinnerIcon';
 import { useNavigate } from 'react-router-dom';
 
-const DeleteModal = ({ type, show, onHide, projectId, formId }) => {
+const DeleteModal = ({ show, onHide, projectId, formId }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -23,6 +23,7 @@ const DeleteModal = ({ type, show, onHide, projectId, formId }) => {
       navigate(formId ? `/projects/${projectId}` : '/projects');
     }
   };
+
   return (
     <Modal title="Are you sure?" show={show} onHide={onHide}>
       <h1 className="leading-relaxed">

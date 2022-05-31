@@ -14,6 +14,7 @@ import EditForm from '../Dashboard/EditForm';
 const ManageForm = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [active, setActive] = useState('');
   const [fields, setFields] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
@@ -35,6 +36,7 @@ const ManageForm = () => {
       setName(form.name);
       setDescription(form.description);
       setFields(form.fields);
+      setActive(form.active);
 
       // setRecords(await getRecords(projectId, formId));
     } else {
@@ -55,7 +57,7 @@ const ManageForm = () => {
             />
             <PageButton
               style="warning"
-              label="Archive"
+              label={active ? 'Archive' : 'Unarchive'}
               onClick={toggleArchiveModal}
             />
             <PageButton
@@ -79,7 +81,10 @@ const ManageForm = () => {
             />
             <PublishFormModal formId={formId} />
             <ArchiveModal
-              type="form"
+              projectId={projectId}
+              formId={formId}
+              active={!active}
+              setActive={setActive}
               show={showArchiveModal}
               onHide={toggleArchiveModal}
             />

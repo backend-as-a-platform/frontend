@@ -16,6 +16,7 @@ import FormsTable from '../Tables/FormsTable';
 const ManageProject = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [active, setActive] = useState('');
   const [showEditModal, setShowEditModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -33,6 +34,7 @@ const ManageProject = () => {
     if (project) {
       setName(project.name);
       setDescription(project.description);
+      setActive(project.active);
 
       setForms(await getForms(projectId));
     } else {
@@ -53,7 +55,7 @@ const ManageProject = () => {
             />
             <PageButton
               style="warning"
-              label="Archive"
+              label={active ? 'Archive' : 'Unarchive'}
               onClick={toggleArchiveModal}
             />
             <PageButton
@@ -71,7 +73,9 @@ const ManageProject = () => {
               setDescription={setDescription}
             />
             <ArchiveModal
-              type="project"
+              projectId={projectId}
+              active={!active}
+              setActive={setActive}
               show={showArchiveModal}
               onHide={toggleArchiveModal}
             />

@@ -1,12 +1,53 @@
+import { useState } from 'react';
 import Modal from './Modal';
+import { setProjectStatus } from '../../hooks/useProject';
+import { setFormStatus } from '../../hooks/useForm';
+import SpinnerIcon from '../Icons/SpinnerIcon';
+import { useNavigate } from 'react-router-dom';
 
-const ArchiveModal = ({ type, show, onHide }) => {
+const ArchiveModal = ({
+  show,
+  onHide,
+  projectId,
+  formId,
+  active,
+  setActive,
+}) => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const onClick = async (e) => {
+    setLoading(true);
+
+    const archived = formId
+      ? await setFormStatus(projectId, formId, active)
+      : await setProjectStatus(projectId, active);
+
+    if (archived) {
+      setLoading(false);
+      onHide();
+      setActive(active);
+    }
+  };
+
   return (
     <Modal title="Are you sure?" show={show} onHide={onHide}>
-      <h1>
-        Archiving will make the {type} readonly. You can revert back anytime by
-        using the <span className="font-semibold">Unarchive</span> option.
-      </h1>
+      {!active ? (
+        <h1>
+          Archiving will make the {formId ? 'form' : 'project'} readonly. You
+          can revert back anytime by using the{' '}
+          <span className="font-semibold">Unarchive</span> option.
+        </h1>
+      ) : (
+        <h1>
+          Unarchiving will make the {formId ? 'form' : 'project'} active again.
+        </h1>
+      )}
+
+      <button className="btn btn-primary mt-5 w-full" onClick={onClick}>
+        {loading && <SpinnerIcon size={5} />}
+        Yes
+      </button>
     </Modal>
   );
 };

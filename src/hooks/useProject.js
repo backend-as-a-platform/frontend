@@ -62,4 +62,23 @@ const deleteProject = async (id) => {
   }
 };
 
-export { getProject, getProjects, createProject, updateProject, deleteProject };
+const setProjectStatus = async (id, status) => {
+  try {
+    const { data } = await http.post(`/projects/${id}/status`, {
+      active: status,
+    });
+
+    return data;
+  } catch (_) {
+    return;
+  }
+};
+
+export {
+  getProject,
+  getProjects,
+  createProject,
+  updateProject,
+  deleteProject,
+  setProjectStatus,
+};

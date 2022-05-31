@@ -123,6 +123,21 @@ const deleteForm = async (projectId, formId) => {
   }
 };
 
+const setFormStatus = async (projectId, formId, status) => {
+  try {
+    const { data } = await http.post(
+      `/projects/${projectId}/forms/${formId}/status`,
+      {
+        active: status,
+      }
+    );
+
+    return data;
+  } catch (_) {
+    return;
+  }
+};
+
 export {
   onChange,
   onFileChange,
@@ -132,4 +147,5 @@ export {
   createForm,
   updateForm,
   deleteForm,
+  setFormStatus,
 };

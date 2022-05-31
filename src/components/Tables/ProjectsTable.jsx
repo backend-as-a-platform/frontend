@@ -26,7 +26,13 @@ const ProjectsTable = ({ projects, readonly }) => {
             </td>
             <td>{project.description}</td>
             <td>
-              <div className="badge badge-success">active</div>
+              <div
+                className={
+                  project.active ? 'badge badge-success' : 'badge badge-warning'
+                }
+              >
+                {project.active ? 'active' : 'archive'}
+              </div>
             </td>
           </tr>
         ))}
