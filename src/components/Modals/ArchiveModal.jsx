@@ -34,13 +34,18 @@ const ArchiveModal = ({
     <Modal title="Are you sure?" show={show} onHide={onHide}>
       {!active ? (
         <h1>
-          Archiving will make the {formId ? 'form' : 'project'} readonly. You
+          Archiving will make the {formId ? 'form' : 'project'} readonly. Means
+          users cannot{' '}
+          {formId ? 'submit records to this form' : 'clone this project'}. You
           can revert back anytime by using the{' '}
           <span className="font-semibold">Unarchive</span> option.
         </h1>
       ) : (
         <h1>
-          Unarchiving will make the {formId ? 'form' : 'project'} active again.
+          Unarchiving will make the {formId ? 'form' : 'project'} active again
+          {formId
+            ? '.'
+            : ', including all the forms associated with the project.'}
         </h1>
       )}
 

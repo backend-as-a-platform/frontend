@@ -109,6 +109,39 @@ const updateProfile = async (name, email, password, avatar, setResult) => {
   }
 };
 
+const getUsersByIds = async (userIds) => {
+  try {
+    const { data } = await http.post('/users/ids', { userIds });
+
+    return data;
+  } catch ({ response }) {
+    return;
+  }
+};
+
+const checkUserEmail = async (email, currentUserEmail, setResult) => {
+  try {
+    if (email === currentUserEmail) {
+      throw { response: 'That is not necessary' };
+    }
+
+    const { data } = await http.get(`/users/mail/${email || null}`);
+
+    return data;
+  } catch ({ response }) {
+    const error =
+      response.status === 404
+        ? 'No such user with that email'
+        : response.data && response.data.reason
+        ? transformResponse(response.data.reason)
+        : response;
+
+    setResult(error);
+
+    return;
+  }
+};
+
 const checkAvatar = async (userId) => {
   try {
     await http.get(`/users/${userId}/avatar.png`);
@@ -130,6 +163,8 @@ export {
   logout,
   getProfile,
   updateProfile,
+  getUsersByIds,
+  checkUserEmail,
   checkAvatar,
   getAvatarUri,
 };

@@ -7,6 +7,8 @@ const textArea =
   'textarea textarea-bordered w-full bg-gray-50 text-gray-900 block p-2.5 dark:text-white dark:bg-gray-600 dark:placeholder-gray-400';
 const baseLabel = 'font-medium text-gray-900 dark:text-gray-300';
 const textLabel = `block mb-2 text-sm ${baseLabel}`;
+const selectInput =
+  'select select-bordered w-full bg-gray-50 text-gray-900 dark:text-white dark:bg-gray-600';
 const tooltipPrimary =
   'tooltip tooltip-open tooltip-bottom tooltip-primary z-10';
 const tooltipSuccess =
@@ -18,6 +20,7 @@ export {
   textInput,
   textLabel,
   textArea,
+  selectInput,
   baseLabel as checkBoxLabel,
   tooltipPrimary,
   tooltipSuccess,

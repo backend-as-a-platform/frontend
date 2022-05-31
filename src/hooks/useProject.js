@@ -20,11 +20,26 @@ const getProjects = async () => {
   }
 };
 
-const createProject = async (name, description, setResult) => {
+const createProject = async (
+  name,
+  description,
+  access,
+  restrictedTo,
+  setResult
+) => {
   setResult('');
 
+  if (access === 'restrict' && !restrictedTo.length) {
+    access = 'private';
+  }
+
   try {
-    const { data } = await http.post('/projects/new', { name, description });
+    const { data } = await http.post('/projects/new', {
+      name,
+      description,
+      access,
+      restrictedTo,
+    });
 
     return data;
   } catch ({ response }) {
@@ -36,11 +51,27 @@ const createProject = async (name, description, setResult) => {
   }
 };
 
-const updateProject = async (id, name, description, setResult) => {
+const updateProject = async (
+  id,
+  name,
+  description,
+  access,
+  restrictedTo,
+  setResult
+) => {
   setResult('');
 
+  if (access === 'restrict' && !restrictedTo.length) {
+    access = 'private';
+  }
+
   try {
-    const { data } = await http.put(`/projects/${id}`, { name, description });
+    const { data } = await http.put(`/projects/${id}`, {
+      name,
+      description,
+      access,
+      restrictedTo,
+    });
 
     return data;
   } catch ({ response }) {

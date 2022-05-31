@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-
+import { getUsersByIds } from '../../hooks/useAuth';
 import { getProject } from '../../hooks/useProject';
 import { getForms } from '../../hooks/useForm';
 import CTA from '../CTA/CTA';
@@ -17,6 +17,8 @@ const ManageProject = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [active, setActive] = useState('');
+  const [access, setAccess] = useState('');
+  const [addedUsers, setAddedUsers] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -35,7 +37,9 @@ const ManageProject = () => {
       setName(project.name);
       setDescription(project.description);
       setActive(project.active);
+      setAccess(project.access);
 
+      setAddedUsers(await getUsersByIds(project.restrictedTo));
       setForms(await getForms(projectId));
     } else {
       navigate('/404');
@@ -67,10 +71,14 @@ const ManageProject = () => {
               type="project"
               name={name}
               description={description}
+              access={access}
+              addedUsers={addedUsers}
               show={showEditModal}
               onHide={toggleEditModal}
               setName={setName}
               setDescription={setDescription}
+              setAccess={setAccess}
+              setAddedUsers={setAddedUsers}
             />
             <ArchiveModal
               projectId={projectId}
