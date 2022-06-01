@@ -96,7 +96,12 @@ const updateForm = async (projectId, formId, data, setResult) => {
     return data;
   } catch ({ response }) {
     if (fields) {
-      if (response.data.reason.indexOf("'fields'") === 0) {
+      if (!response.data.reason) {
+        setResult(
+          false,
+          'You are not authorized to edit this form, but you can clone the project to make your changes.'
+        );
+      } else if (response.data.reason.indexOf("'fields'") === 0) {
         setResult(false, 'Fields cannot be empty.');
       } else {
         setResult(false, 'Failed to update form, please try again.');

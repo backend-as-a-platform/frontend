@@ -83,6 +83,38 @@ const updateProject = async (
   }
 };
 
+const cloneProject = async (
+  id,
+  name,
+  description,
+  access,
+  restrictedTo,
+  setResult
+) => {
+  setResult('');
+
+  if (access === 'restrict' && !restrictedTo.length) {
+    access = 'private';
+  }
+
+  try {
+    const { data } = await http.post(`/projects/${id}/clone`, {
+      name,
+      description,
+      access,
+      restrictedTo,
+    });
+
+    return data;
+  } catch ({ response }) {
+    const error = transformResponse(response.data.reason);
+
+    setResult(error);
+
+    return;
+  }
+};
+
 const deleteProject = async (id) => {
   try {
     const { data } = await http.delete(`/projects/${id}`);
@@ -110,6 +142,7 @@ export {
   getProjects,
   createProject,
   updateProject,
+  cloneProject,
   deleteProject,
   setProjectStatus,
 };

@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import { Auth } from '../../contexts/Auth';
+import { getProject } from '../../hooks/useProject';
 import { getForm } from '../../hooks/useForm';
 import CTA from '../CTA/CTA';
 import EditModal from '../Modals/EditModal';
@@ -12,10 +14,12 @@ import FormPublishAlert from '../Alerts/FormPublishAlert';
 import EditForm from '../Dashboard/EditForm';
 
 const ManageForm = () => {
+  const [auth] = useContext(Auth);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [active, setActive] = useState('');
   const [fields, setFields] = useState([]);
+  const [owner, setOwner] = useState('');
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [showArchiveModal, setShowArchiveModal] = useState(false);
@@ -30,7 +34,10 @@ const ManageForm = () => {
   const toggleDeleteModal = (e) => setShowDeleteModal(!showDeleteModal);
 
   useEffect(async () => {
+    const project = await getProject(projectId);
     const form = await getForm(projectId, formId);
+
+    setOwner(project.owner);
 
     if (form) {
       setName(form.name);
@@ -50,50 +57,54 @@ const ManageForm = () => {
         <PageTitle>{name}</PageTitle>
         {name ? (
           <>
-            <PageButton
-              style="error"
-              label="Delete"
-              onClick={toggleDeleteModal}
-            />
-            <PageButton
-              style="warning"
-              label={active ? 'Archive' : 'Unarchive'}
-              onClick={toggleArchiveModal}
-            />
-            <PageButton
-              style="info"
-              label="Publish"
-              onClick={togglePublishModal}
-            />
-            <PageButton
-              style="primary"
-              label="Edit"
-              onClick={toggleEditModal}
-            />
-            <EditModal
-              type="form"
-              name={name}
-              description={description}
-              show={showEditModal}
-              onHide={toggleEditModal}
-              setName={setName}
-              setDescription={setDescription}
-            />
-            <PublishFormModal formId={formId} />
-            <ArchiveModal
-              projectId={projectId}
-              formId={formId}
-              active={!active}
-              setActive={setActive}
-              show={showArchiveModal}
-              onHide={toggleArchiveModal}
-            />
-            <DeleteModal
-              projectId={projectId}
-              formId={formId}
-              show={showDeleteModal}
-              onHide={toggleDeleteModal}
-            />
+            {auth._id === owner ? (
+              <>
+                <PageButton
+                  style="error"
+                  label="Delete"
+                  onClick={toggleDeleteModal}
+                />
+                <PageButton
+                  style="warning"
+                  label={active ? 'Archive' : 'Unarchive'}
+                  onClick={toggleArchiveModal}
+                />
+                <PageButton
+                  style="info"
+                  label="Publish"
+                  onClick={togglePublishModal}
+                />
+                <PageButton
+                  style="primary"
+                  label="Edit"
+                  onClick={toggleEditModal}
+                />
+                <EditModal
+                  type="form"
+                  name={name}
+                  description={description}
+                  show={showEditModal}
+                  onHide={toggleEditModal}
+                  setName={setName}
+                  setDescription={setDescription}
+                />
+                <PublishFormModal formId={formId} />
+                <ArchiveModal
+                  projectId={projectId}
+                  formId={formId}
+                  active={!active}
+                  setActive={setActive}
+                  show={showArchiveModal}
+                  onHide={toggleArchiveModal}
+                />
+                <DeleteModal
+                  projectId={projectId}
+                  formId={formId}
+                  show={showDeleteModal}
+                  onHide={toggleDeleteModal}
+                />
+              </>
+            ) : null}
           </>
         ) : null}
       </div>
