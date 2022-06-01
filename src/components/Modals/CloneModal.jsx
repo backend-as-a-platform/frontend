@@ -1,5 +1,5 @@
 import Modal from './Modal';
-import CloneForm from '../Forms/CloneForm';
+import CloneProjectForm from '../Forms/CloneProjectForm';
 
 const CloneModal = ({
   name,
@@ -11,7 +11,7 @@ const CloneModal = ({
 }) => {
   return (
     <Modal title="Clone project" show={show} onHide={onHide}>
-      <CloneForm
+      <CloneProjectForm
         name={name}
         description={description}
         onSuccess={onHide}

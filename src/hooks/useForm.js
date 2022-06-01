@@ -116,6 +116,25 @@ const updateForm = async (projectId, formId, data, setResult) => {
   }
 };
 
+const shareForm = async (projectId, formId, data) => {
+  let { access, restrictedTo } = data;
+
+  if (access === 'restrict' && !restrictedTo.length) {
+    access = 'private';
+  }
+
+  try {
+    const { data } = await http.post(
+      `/projects/${projectId}/forms/${formId}/share`,
+      { access, restrictedTo }
+    );
+
+    return data;
+  } catch ({ response }) {
+    console.log(response);
+  }
+};
+
 const deleteForm = async (projectId, formId) => {
   try {
     const { data } = await http.delete(
@@ -128,13 +147,11 @@ const deleteForm = async (projectId, formId) => {
   }
 };
 
-const setFormStatus = async (projectId, formId, status) => {
+const setFormStatus = async (formId, status) => {
   try {
     const { data } = await http.post(
       `/projects/${projectId}/forms/${formId}/status`,
-      {
-        active: status,
-      }
+      { active: status }
     );
 
     return data;
@@ -151,6 +168,7 @@ export {
   validateForm,
   createForm,
   updateForm,
+  shareForm,
   deleteForm,
   setFormStatus,
 };

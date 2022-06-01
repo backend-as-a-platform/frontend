@@ -14,6 +14,7 @@ import PageButton from '../Typography/PageButton';
 import SectionTitle from '../Typography/SectionTitle';
 import SectionButton from '../Typography/SectionButton';
 import FormsTable from '../Tables/FormsTable';
+import ShareAlert from '../Alerts/ShareAlert';
 
 const ManageProject = () => {
   const [auth] = useContext(Auth);
@@ -51,7 +52,7 @@ const ManageProject = () => {
     } else {
       navigate('/404');
     }
-  }, []);
+  }, [active]);
 
   return (
     <>
@@ -62,21 +63,25 @@ const ManageProject = () => {
           <>
             {auth._id === owner ? (
               <>
-                <PageButton
-                  style="error"
-                  label="Delete"
-                  onClick={toggleDeleteModal}
-                />
+                {active ? (
+                  <PageButton
+                    style="error"
+                    label="Delete"
+                    onClick={toggleDeleteModal}
+                  />
+                ) : null}
                 <PageButton
                   style="warning"
                   label={active ? 'Archive' : 'Unarchive'}
                   onClick={toggleArchiveModal}
                 />
-                <PageButton
-                  style="primary"
-                  label="Edit"
-                  onClick={toggleEditModal}
-                />
+                {active ? (
+                  <PageButton
+                    style="primary"
+                    label="Edit"
+                    onClick={toggleEditModal}
+                  />
+                ) : null}
                 <EditModal
                   type="project"
                   name={name}
@@ -105,19 +110,25 @@ const ManageProject = () => {
               </>
             ) : (
               <>
-                <PageButton
-                  style="primary"
-                  label="Clone"
-                  onClick={toggleCloneModal}
-                />
-                <CloneModal
-                  name={name}
-                  description={description}
-                  show={showCloneModal}
-                  onHide={toggleCloneModal}
-                  setName={setName}
-                  setDescription={setDescription}
-                />
+                {active ? (
+                  <>
+                    <PageButton
+                      style="primary"
+                      label="Clone"
+                      onClick={toggleCloneModal}
+                    />
+                    <CloneModal
+                      name={name}
+                      description={description}
+                      show={showCloneModal}
+                      onHide={toggleCloneModal}
+                      setName={setName}
+                      setDescription={setDescription}
+                      setAccess={setAccess}
+                      setAddedUsers={setAddedUsers}
+                    />
+                  </>
+                ) : null}
               </>
             )}
           </>
@@ -125,6 +136,8 @@ const ManageProject = () => {
       </div>
 
       <CTA />
+
+      {auth._id === owner && access !== 'private' ? <ShareAlert /> : null}
 
       <div>
         <SectionTitle>Forms</SectionTitle>

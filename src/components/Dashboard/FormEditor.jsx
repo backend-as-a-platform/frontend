@@ -31,15 +31,19 @@ class FormEditor extends Component {
       ],
       disableFields: ['button', 'hidden', 'file'],
       onSave: async (e, formData) => {
-        const { name, description } = this.state;
-        const fields = JSON.parse(formData);
+        if (this.props.active) {
+          const { name, description } = this.state;
+          const fields = JSON.parse(formData);
 
-        await updateForm(
-          this.props.project,
-          this.props.form,
-          { fields },
-          this.setResult
-        );
+          await updateForm(
+            this.props.project,
+            this.props.form,
+            { fields },
+            this.setResult
+          );
+        } else {
+          this.setResult(false, 'You cannot edit archived forms.');
+        }
 
         this.toggleFormResponseModal();
       },

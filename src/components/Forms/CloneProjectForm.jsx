@@ -17,7 +17,7 @@ import {
   tooltipError,
 } from '../../utils/classes';
 
-const CloneForm = ({
+const CloneProjectForm = ({
   name,
   description,
   onSuccess,
@@ -68,7 +68,7 @@ const CloneForm = ({
 
   const onSubmit = async (e) => {
     const restrictedTo = addedUsers.map((user) => user._id);
-    const clonedUser = await cloneProject(
+    const clonedProject = await cloneProject(
       projectId,
       newName,
       newDescription,
@@ -78,11 +78,11 @@ const CloneForm = ({
     );
 
     // Hide modal
-    if (clonedUser) {
+    if (clonedProject) {
       onSuccess();
-      // setName(clonedUser.name);
-      // setDescription(clonedUser.description);
-      // setAccess(clonedUser.access);
+      // setName(clonedProject.name);
+      // setDescription(clonedProject.description);
+      // setAccess(clonedProject.access);
       // setAddedUsers(addedUsers);
     }
   };
@@ -187,4 +187,4 @@ const CloneForm = ({
   );
 };
 
-export default CloneForm;
+export default CloneProjectForm;

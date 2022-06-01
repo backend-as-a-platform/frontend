@@ -1,11 +1,37 @@
 import Modal from './Modal';
 import CreateForm from '../Forms/CreateForm';
+import ShareForm from '../Forms/ShareForm';
 import { useNavigate, useParams } from 'react-router';
 
 const ValidateFormModal = ({ show, onSuccess }) => {
   return (
     <Modal title="Create form" show={show} closable={false}>
       <CreateForm onSuccess={onSuccess} />
+    </Modal>
+  );
+};
+
+const ShareFormModal = ({
+  projectId,
+  formId,
+  show,
+  onHide,
+  shareTo,
+  setShareTo,
+  addedUsers,
+  setAddedUsers,
+}) => {
+  return (
+    <Modal title="Share form" show={show} onHide={onHide}>
+      <ShareForm
+        projectId={projectId}
+        formId={formId}
+        shareTo={shareTo}
+        setShareTo={setShareTo}
+        addedUsers={addedUsers}
+        setAddedUsers={setAddedUsers}
+        onSuccess={onHide}
+      />
     </Modal>
   );
 };
@@ -32,9 +58,5 @@ const FormResponseModal = ({ show, onHide, title, body, created }) => {
   );
 };
 
-const PublishFormModal = ({ formId }) => {
-  return null;
-};
-
 export default ValidateFormModal;
-export { FormResponseModal, PublishFormModal };
+export { FormResponseModal, ShareFormModal };
