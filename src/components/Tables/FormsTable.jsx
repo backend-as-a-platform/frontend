@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const FormsTable = ({ forms }) => {
+const FormsTable = ({ forms, readonly }) => {
   return (
     <table className="table w-full">
       <thead>
@@ -16,9 +16,13 @@ const FormsTable = ({ forms }) => {
           <tr key={form._id} className="hover">
             <td>{i + 1}</td>
             <td>
-              <Link to={`forms/${form._id}`} className="hover:underline">
-                {form.name}
-              </Link>
+              {readonly ? (
+                form.name
+              ) : (
+                <Link to={`forms/${form._id}`} className="hover:underline">
+                  {form.name}
+                </Link>
+              )}
             </td>
             <td>{form.description}</td>
             <td>

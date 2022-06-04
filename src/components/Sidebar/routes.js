@@ -15,7 +15,7 @@ const routes = [
     name: 'Projects',
   },
   {
-    path: '/cards',
+    path: '/forms',
     icon: FormsIcon,
     name: 'Forms',
   },

@@ -4,13 +4,33 @@ import CTA from '../CTA/CTA';
 import InfoCard from '../Cards/InfoCard';
 import { getProjects } from '../../hooks/useProject';
 import ProjectsTable from '../Tables/ProjectsTable';
+import SectionTitle from '../Typography/SectionTitle';
+import FormsTable from '../Tables/FormsTable';
+import { getForms } from '../../hooks/useForm';
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
+  const [forms, setForms] = useState([]);
+  const [selectedProject, setSelectedProject] = useState('');
 
   useEffect(async () => {
     setProjects(await getProjects());
   }, []);
+
+  const onProjectChange = (e) => {
+    const selected = projects.filter(
+      (project) => project.name === e.target.value
+    )[0];
+    setSelectedProject(selected);
+  };
+
+  useEffect(async () => {
+    if (selectedProject) {
+      setForms(await getForms(selectedProject._id));
+    } else {
+      setForms([]);
+    }
+  }, [selectedProject]);
 
   return (
     <>
@@ -53,9 +73,34 @@ const Dashboard = () => {
         </InfoCard>
       </div>
 
-      {/* <DashboardTable /> */}
       {projects.length ? (
-        <ProjectsTable projects={projects} readonly={true} />
+        <>
+          <SectionTitle>Projects</SectionTitle>
+          <ProjectsTable projects={projects} readonly={true} />
+        </>
+      ) : null}
+
+      {projects.length ? (
+        <>
+          <SectionTitle>Forms</SectionTitle>
+          <select
+            className="select select-bordered select-sm max-w-xs float-right"
+            value={selectedProject && selectedProject.name}
+            onChange={onProjectChange}
+          >
+            <option defaultValue>Select project</option>
+            <>
+              {projects.map((project) => (
+                <option key={project._id} value={project.name}>
+                  {project.name}
+                </option>
+              ))}
+            </>
+          </select>
+          {forms && forms.length ? (
+            <FormsTable forms={forms} readonly={true} />
+          ) : null}
+        </>
       ) : null}
     </>
   );

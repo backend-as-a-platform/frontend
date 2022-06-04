@@ -90,7 +90,7 @@ const updateForm = async (projectId, formId, data, setResult) => {
     });
 
     if (fields) {
-      setResult(true, 'Form updated succesfully.');
+      setResult(true, 'Form schema updated succesfully.');
     }
 
     return data;
@@ -147,7 +147,7 @@ const deleteForm = async (projectId, formId) => {
   }
 };
 
-const setFormStatus = async (formId, status) => {
+const setFormStatus = async (projectId, formId, status) => {
   try {
     const { data } = await http.post(
       `/projects/${projectId}/forms/${formId}/status`,
@@ -155,6 +155,56 @@ const setFormStatus = async (formId, status) => {
     );
 
     return data;
+  } catch (_) {
+    return;
+  }
+};
+
+const getFormFields = async (formId) => {
+  const submitButton = {
+    type: 'button',
+    subtype: 'submit',
+    label: 'Submit',
+    className: 'btn btn-primary',
+    name: 'submit',
+  };
+
+  try {
+    const { data } = await http.get(`/forms/${formId}/fields`);
+
+    data.fields.forEach((field) => {
+      if (field.type !== 'radio-group') {
+        field.className = 'block input input-bordered w-1/3';
+      }
+    });
+
+    data.fields.push(submitButton);
+
+    return data;
+  } catch (_) {
+    return;
+  }
+};
+
+const createFormRecord = async (formId, formData) => {
+  try {
+    const { data } = await http.post(`/forms/${formId}`, formData);
+
+    return data;
+  } catch (_) {
+    return;
+  }
+};
+
+const getRecords = async (formId, version, latestVersion, format) => {
+  try {
+    const { data, headers } = await http.get(
+      `/forms/${formId}${version != latestVersion ? `/v/${version}` : ''}${
+        format ? `?format=${format}` : ''
+      }`
+    );
+
+    return format ? data.file : data;
   } catch (_) {
     return;
   }
@@ -171,4 +221,7 @@ export {
   shareForm,
   deleteForm,
   setFormStatus,
+  getFormFields,
+  createFormRecord,
+  getRecords,
 };

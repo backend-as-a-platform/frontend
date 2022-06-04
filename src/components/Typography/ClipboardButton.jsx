@@ -14,7 +14,7 @@ const ClipboardBtn = ({ value }) => {
       {copied ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="stroke-current flex-shrink-0 h-6 w-6"
+          className="stroke-current flex-shrink-0 h-6 w-6 text-green-600"
           fill="none"
           viewBox="0 0 24 24"
           onMouseLeave={(e) => setCopied(false)}

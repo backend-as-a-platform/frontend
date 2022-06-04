@@ -66,7 +66,7 @@ const EditProfileForm = ({
             type="text"
             id="name"
             className={textInput}
-            placeholder="John Doe"
+            placeholder="Dave Mustaine"
             value={name}
             onChange={onNameChange}
           />

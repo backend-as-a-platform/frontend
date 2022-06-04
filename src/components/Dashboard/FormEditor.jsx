@@ -74,7 +74,7 @@ class FormEditor extends Component {
 
   render() {
     return (
-      <>
+      <div className="mb-8">
         <div id="form-builder" ref={this.formBuilder} />
 
         <FormResponseModal
@@ -84,7 +84,7 @@ class FormEditor extends Component {
           created={this.state.formUpdated}
           onHide={this.toggleFormResponseModal}
         />
-      </>
+      </div>
     );
   }
 }

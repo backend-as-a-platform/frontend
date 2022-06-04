@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const ProjectsTable = ({ projects, readonly }) => {
   return (
-    <table className="table w-full">
+    <table className="table w-full mb-8">
       <thead>
         <tr>
           <th>#</th>

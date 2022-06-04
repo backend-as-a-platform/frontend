@@ -137,7 +137,9 @@ const ManageProject = () => {
 
       <CTA />
 
-      {auth._id === owner && access !== 'private' ? <ShareAlert /> : null}
+      {auth._id === owner && access !== 'private' ? (
+        <ShareAlert helpText="Project URL -" />
+      ) : null}
 
       <div>
         <SectionTitle>Forms</SectionTitle>

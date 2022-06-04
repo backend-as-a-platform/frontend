@@ -44,7 +44,7 @@ const SignupForm = ({ onToggle }) => {
             type="text"
             id="name"
             className={textInput}
-            placeholder="John Doe"
+            placeholder="Dave Mustaine"
             value={name}
             required
             onChange={onNameChange}

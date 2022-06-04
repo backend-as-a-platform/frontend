@@ -3,7 +3,6 @@ import FormEditor from './FormEditor';
 
 const EditForm = ({ active, fields }) => {
   const { projectId, formId } = useParams();
-  // console.log(active);
 
   return (
     <FormEditor

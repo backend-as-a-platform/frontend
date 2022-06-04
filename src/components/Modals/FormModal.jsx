@@ -58,5 +58,18 @@ const FormResponseModal = ({ show, onHide, title, body, created }) => {
   );
 };
 
+const FormRecordResponseModal = ({ show, onHide }) => {
+  return (
+    <Modal title="Status" show={show} onHide={onHide}>
+      <p className="text-lg mb-5">
+        Your record has been submitted successfully.
+      </p>
+      <button className="w-full btn btn-primary" onClick={onHide}>
+        Okay
+      </button>
+    </Modal>
+  );
+};
+
 export default ValidateFormModal;
-export { FormResponseModal, ShareFormModal };
+export { FormResponseModal, FormRecordResponseModal, ShareFormModal };

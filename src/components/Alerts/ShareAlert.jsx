@@ -4,7 +4,7 @@ import InfoIcon from '../Icons/InfoIcon';
 
 const ShareAlert = ({ helpText, value }) => {
   return (
-    <div className="alert shadow-lg relative mb-3">
+    <div className="alert shadow-lg relative mb-8">
       <div>
         <ShareIcon />
         <span>
