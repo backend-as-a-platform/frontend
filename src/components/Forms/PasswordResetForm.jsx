@@ -13,6 +13,7 @@ import {
   tooltipSuccess,
 } from '../../utils/classes';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const PasswordResetForm = ({ onToggle }) => {
   const [name, setName] = useState('');
@@ -33,12 +34,15 @@ const PasswordResetForm = ({ onToggle }) => {
     <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label htmlFor="password" className={textLabel}>
-          Password
+          New password
         </label>
         <span
-          className={`${
-            testError('password', error) ? tooltipError : ''
-          } w-full`}
+          className={`w-full ${
+            error
+              ? (testError('malformed', error) && tooltipError) ||
+                tooltipSuccess
+              : ''
+          }`}
           data-tip={error}
         >
           <div className="relative">
@@ -65,10 +69,10 @@ const PasswordResetForm = ({ onToggle }) => {
         </button>
       </div>
       <p className="text-sm text-gray-900 font-medium dark:text-gray-300">
-        Already registered?{' '}
-        <a className={`cursor-pointer ${linkPrimary}`} onClick={onToggle}>
-          Login
-        </a>
+        Back to{' '}
+        <Link className={`cursor-pointer ${linkPrimary}`} to="/">
+          Home
+        </Link>
       </p>
     </form>
   );
