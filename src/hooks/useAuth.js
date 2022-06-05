@@ -82,6 +82,23 @@ const requestPasswordReset = async (email, setResult) => {
   }
 };
 
+const resetPassword = async (newPassword, passwordResetToken, setResult) => {
+  setResult('');
+
+  try {
+    const { data } = await http.post(
+      `/users/reset-password/${passwordResetToken}`,
+      { newPassword }
+    );
+
+    setResult('Your password has been changed successfully');
+
+    return true;
+  } catch ({ response }) {
+    setResult('Password reset link is malformed');
+  }
+};
+
 const getProfile = async () => {
   try {
     const { data } = await http.get('/users/profile');
@@ -186,4 +203,5 @@ export {
   checkAvatar,
   getAvatarUri,
   requestPasswordReset,
+  resetPassword,
 };

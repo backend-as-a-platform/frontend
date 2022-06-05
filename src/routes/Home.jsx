@@ -14,7 +14,7 @@ import FooterAnimated from '../components/Footer/FooterAnimated';
 
 import 'aos/dist/aos.css';
 
-const Home = () => {
+const Home = ({ newPassword }) => {
   const [theme, setTheme] = useContext(Theme);
   const [modalTitle, setModalTitle] = useState(modalTitles[0]);
   const [showModal, setShowModal] = useState(false);
@@ -49,8 +49,8 @@ const Home = () => {
 
   const toggleToResetPassword = (e) => {
     setModalTitle(modalTitles[2]);
-    setShowResetPassword(true);
     setShowLogin(false);
+    setShowResetPassword(true);
   };
 
   return (
@@ -71,6 +71,7 @@ const Home = () => {
         show={showModal}
         login={showLogin}
         reset={showResetPassword}
+        newPassword={newPassword}
         toggleToLogin={toggleToLogin}
         toggleToSignup={toggleToSignup}
         toggleToResetPassword={toggleToResetPassword}

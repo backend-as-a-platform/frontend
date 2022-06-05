@@ -64,6 +64,10 @@ const App = () => {
         path="/forms"
         element={<ProtectedRoute route={<Dashboard component={Forms} />} />}
       />
+      <Route
+        path="/reset-password/:passwordResetToken"
+        element={<Home newPassword />}
+      />
       <Route path="/logout" element={<ProtectedRoute route={<Logout />} />} />
       <Route
         path="/logout-all"
