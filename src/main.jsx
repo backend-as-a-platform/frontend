@@ -4,18 +4,18 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import ThemeProvider from './contexts/Theme';
 import AuthProvider from './contexts/Auth';
-import { SidebarProvider } from './contexts/Sidebar';
+import SearchProvider from './contexts/Search';
 
 import './assets/css/index.css';
 
 ReactDOM.render(
   <BrowserRouter>
     <ThemeProvider>
-      <SidebarProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <SearchProvider>
           <App />
-        </AuthProvider>
-      </SidebarProvider>
+        </SearchProvider>
+      </AuthProvider>
     </ThemeProvider>
   </BrowserRouter>,
   document.querySelector('#root')

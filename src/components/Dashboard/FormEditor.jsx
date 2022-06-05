@@ -26,10 +26,9 @@ class FormEditor extends Component {
         'textarea',
         'checkbox-group',
         'radio-group',
-        'autocomplete',
         'select',
       ],
-      disableFields: ['button', 'hidden', 'file'],
+      disableFields: ['button', 'hidden', 'file', 'autocomplete'],
       onSave: async (e, formData) => {
         if (this.props.active) {
           const { name, description } = this.state;

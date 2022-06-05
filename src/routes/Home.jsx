@@ -10,7 +10,7 @@ import Features from '../components/Features/Features';
 import HeroSimple from '../components/Hero/HeroSimple';
 import Workflows from '../components/Workflows/Workflows';
 import HeroEnd from '../components/Hero/HeroEnd';
-import Footer from '../components/Footer/Footer';
+import FooterAnimated from '../components/Footer/FooterAnimated';
 
 import 'aos/dist/aos.css';
 
@@ -47,7 +47,7 @@ const Home = () => {
   return (
     <div className="mx-auto md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-14 overflow-clip">
       <NavBar toggleTheme={toggleTheme} showLogin={toggleModal} />
-      <HeroMain />
+      <HeroMain showExtras />
       <HeroDesign />
       <Features />
       <HeroSimple
@@ -56,7 +56,7 @@ const Home = () => {
       />
       <Workflows />
       <HeroEnd title="Don't think, just start!" />
-      <Footer />
+      <FooterAnimated />
       <AuthModal
         title={modalTitle}
         show={showModal}

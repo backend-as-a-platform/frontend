@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 
-const FormsTable = ({ forms, readonly }) => {
+const FormsTable = ({ forms, readonly, hideStatus, newRecord }) => {
   return (
-    <table className="table w-full">
+    <table className="table w-full mb-8">
       <thead>
         <tr>
           <th>#</th>
           <th>Name</th>
           <th>Description</th>
-          <th>Status</th>
+          {hideStatus ? null : <th>Status</th>}
         </tr>
       </thead>
       <tbody>
@@ -19,21 +19,26 @@ const FormsTable = ({ forms, readonly }) => {
               {readonly ? (
                 form.name
               ) : (
-                <Link to={`forms/${form._id}`} className="hover:underline">
+                <Link
+                  to={`${newRecord ? '/' : ''}forms/${form._id}`}
+                  className="hover:underline"
+                >
                   {form.name}
                 </Link>
               )}
             </td>
             <td>{form.description}</td>
-            <td>
-              <div
-                className={
-                  form.active ? 'badge badge-success' : 'badge badge-warning'
-                }
-              >
-                {form.active ? 'active' : 'archive'}
-              </div>
-            </td>
+            {hideStatus ? null : (
+              <td>
+                <div
+                  className={
+                    form.active ? 'badge badge-success' : 'badge badge-warning'
+                  }
+                >
+                  {form.active ? 'active' : 'archive'}
+                </div>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

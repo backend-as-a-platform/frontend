@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Auth } from '../../contexts/Auth';
+import { Search } from '../../contexts/Search';
 import { getUsersByIds } from '../../hooks/useAuth';
 import { getProject } from '../../hooks/useProject';
 import { getForms } from '../../hooks/useForm';
@@ -18,6 +19,7 @@ import ShareAlert from '../Alerts/ShareAlert';
 
 const ManageProject = () => {
   const [auth] = useContext(Auth);
+  const [search] = useContext(Search);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [owner, setOwner] = useState('');
@@ -30,6 +32,7 @@ const ManageProject = () => {
   const [showCreateFormModal, setShowCreateFormModal] = useState(false);
   const [showCloneModal, setShowCloneModal] = useState(false);
   const [forms, setForms] = useState([]);
+  const [filteredForms, setFilteredForms] = useState([]);
   const navigate = useNavigate();
   const { projectId } = useParams();
   const toggleEditModal = (e) => setShowEditModal(!showEditModal);
@@ -48,11 +51,27 @@ const ManageProject = () => {
       setAccess(project.access);
 
       setAddedUsers(await getUsersByIds(project.restrictedTo));
-      setForms(await getForms(projectId));
+
+      const forms = await getForms(projectId);
+
+      setForms(forms);
+      setFilteredForms(forms);
     } else {
       navigate('/404');
     }
   }, [active]);
+
+  useEffect(() => {
+    const filtered = forms.filter((form) => {
+      return (
+        form.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
+        form.description.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
+        (form.active ? 'active' : 'archive').indexOf(search.toLowerCase()) > -1
+      );
+    });
+
+    setFilteredForms(filtered);
+  }, [search]);
 
   return (
     <>
@@ -151,7 +170,11 @@ const ManageProject = () => {
         />
       </div>
 
-      {forms.length ? <FormsTable forms={forms} /> : null}
+      {filteredForms.length ? (
+        <FormsTable forms={filteredForms} />
+      ) : (
+        <p className="mb-8">No forms found</p>
+      )}
     </>
   );
 };

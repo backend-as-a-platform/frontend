@@ -160,33 +160,24 @@ const setFormStatus = async (projectId, formId, status) => {
   }
 };
 
-const getFormFields = async (formId) => {
-  const submitButton = {
-    type: 'button',
-    subtype: 'submit',
-    label: 'Submit',
-    className: 'btn btn-primary',
-    name: 'submit',
-  };
-
+const getFormInfo = async (formId) => {
   try {
-    const { data } = await http.get(`/forms/${formId}/fields`);
+    const { data } = await http.get(`/forms/${formId}/info`);
 
     data.fields.forEach((field) => {
-      if (field.type !== 'radio-group') {
-        field.className = 'block input input-bordered w-1/3';
+      if (field.type !== 'radio-group' && field.type !== 'checkbox-group') {
+        field.className = 'block input input-bordered w-full mt-3';
       }
     });
 
-    data.fields.push(submitButton);
-
     return data;
-  } catch (_) {
+  } catch (err) {
+    console.log(err);
     return;
   }
 };
 
-const createFormRecord = async (formId, formData) => {
+const createRecord = async (formId, formData) => {
   try {
     const { data } = await http.post(`/forms/${formId}`, formData);
 
@@ -198,13 +189,48 @@ const createFormRecord = async (formId, formData) => {
 
 const getRecords = async (formId, version, latestVersion, format) => {
   try {
-    const { data, headers } = await http.get(
+    const { data } = await http.get(
       `/forms/${formId}${version != latestVersion ? `/v/${version}` : ''}${
         format ? `?format=${format}` : ''
       }`
     );
 
     return format ? data.file : data;
+  } catch (_) {
+    return;
+  }
+};
+
+const updateRecord = async (
+  formId,
+  recordId,
+  formData,
+  version,
+  latestVersion
+) => {
+  try {
+    const { data } = await http.put(
+      `/forms/${formId}${
+        version != latestVersion ? `/v/${version}` : ''
+      }/${recordId}`,
+      formData
+    );
+
+    return data;
+  } catch (_) {
+    return;
+  }
+};
+
+const deleteRecord = async (formId, recordId, version, latestVersion) => {
+  try {
+    const { data } = await http.delete(
+      `/forms/${formId}${
+        version != latestVersion ? `/v/${version}` : ''
+      }/${recordId}`
+    );
+
+    return data;
   } catch (_) {
     return;
   }
@@ -221,7 +247,9 @@ export {
   shareForm,
   deleteForm,
   setFormStatus,
-  getFormFields,
-  createFormRecord,
+  getFormInfo,
   getRecords,
+  createRecord,
+  updateRecord,
+  deleteRecord,
 };

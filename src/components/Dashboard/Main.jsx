@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Search } from '../../contexts/Search';
 import PageTitle from '../Typography/PageTitle';
 import CTA from '../CTA/CTA';
 import InfoCard from '../Cards/InfoCard';
@@ -10,19 +11,39 @@ import { getForms } from '../../hooks/useForm';
 
 const Dashboard = () => {
   const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [forms, setForms] = useState([]);
   const [selectedProject, setSelectedProject] = useState('');
+  const [search] = useContext(Search);
 
   useEffect(async () => {
-    setProjects(await getProjects());
+    const projects = await getProjects();
+
+    setProjects(projects);
+    setFilteredProjects(projects);
   }, []);
 
-  const onProjectChange = (e) => {
-    const selected = projects.filter(
-      (project) => project.name === e.target.value
-    )[0];
-    setSelectedProject(selected);
-  };
+  useEffect(() => {
+    const filtered = projects.filter(
+      (project) =>
+        project.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
+        project.description.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
+        (project.active ? 'active' : 'archive').indexOf(search.toLowerCase()) >
+          -1
+    );
+
+    setFilteredProjects(filtered);
+  }, [search]);
+
+  useEffect(() => {
+    const selectedProjectFound = filteredProjects.filter(
+      (project) => project.name == selectedProject.name
+    );
+
+    if (!selectedProjectFound.length) {
+      setSelectedProject('');
+    }
+  }, [filteredProjects]);
 
   useEffect(async () => {
     if (selectedProject) {
@@ -32,6 +53,14 @@ const Dashboard = () => {
     }
   }, [selectedProject]);
 
+  const onProjectChange = (e) => {
+    const selected = filteredProjects.filter(
+      (project) => project.name === e.target.value
+    )[0];
+
+    setSelectedProject(selected);
+  };
+
   return (
     <>
       <PageTitle>Dashboard</PageTitle>
@@ -39,48 +68,18 @@ const Dashboard = () => {
       <CTA />
 
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total projects" value="137">
-          {/* <RoundIcon
-            icon={PeopleIcon}
-            iconColorClass="text-orange-500 dark:text-orange-100"
-            bgColorClass="bg-orange-100 dark:bg-orange-500"
-            className="mr-4"
-          /> */}
-        </InfoCard>
-        <InfoCard title="Total forms" value="1337">
-          {/* <RoundIcon
-            icon={MoneyIcon}
-            iconColorClass="text-green-500 dark:text-green-100"
-            bgColorClass="bg-green-100 dark:bg-green-500"
-            className="mr-4"
-          /> */}
-        </InfoCard>
-        <InfoCard title="Total records" value="31337">
-          {/* <RoundIcon
-            icon={CartIcon}
-            iconColorClass="text-blue-500 dark:text-blue-100"
-            bgColorClass="bg-blue-100 dark:bg-blue-500"
-            className="mr-4"
-          /> */}
-        </InfoCard>
-        <InfoCard title="Archived projects" value="37">
-          {/* <RoundIcon
-            icon={ChatIcon}
-            iconColorClass="text-teal-500 dark:text-teal-100"
-            bgColorClass="bg-teal-100 dark:bg-teal-500"
-            className="mr-4"
-          /> */}
-        </InfoCard>
+        <InfoCard title="Total projects" value="137" />
+        <InfoCard title="Total forms" value="1337" />
+        <InfoCard title="Total records" value="31337" />
+        <InfoCard title="Archived projects" value="37" />
       </div>
 
-      {projects.length ? (
-        <>
-          <SectionTitle>Projects</SectionTitle>
-          <ProjectsTable projects={projects} readonly={true} />
-        </>
+      <SectionTitle>Projects</SectionTitle>
+      {filteredProjects.length ? (
+        <ProjectsTable projects={filteredProjects} readonly={true} />
       ) : null}
 
-      {projects.length ? (
+      {filteredProjects.length ? (
         <>
           <SectionTitle>Forms</SectionTitle>
           <select
@@ -90,7 +89,7 @@ const Dashboard = () => {
           >
             <option defaultValue>Select project</option>
             <>
-              {projects.map((project) => (
+              {filteredProjects.map((project) => (
                 <option key={project._id} value={project.name}>
                   {project.name}
                 </option>
@@ -98,10 +97,14 @@ const Dashboard = () => {
             </>
           </select>
           {forms && forms.length ? (
-            <FormsTable forms={forms} readonly={true} />
-          ) : null}
+            <FormsTable forms={forms} readonly />
+          ) : (
+            <p className="mb-8">No forms found</p>
+          )}
         </>
-      ) : null}
+      ) : (
+        <p className="mb-8">No projects found</p>
+      )}
     </>
   );
 };

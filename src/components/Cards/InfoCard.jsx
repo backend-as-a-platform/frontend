@@ -1,4 +1,4 @@
-const InfoCard = ({ title, value, children: icon }) => {
+const InfoCard = ({ title, value }) => {
   return (
     <div className="card card-compact bg-base-100 border dark:border-0 rounded-lg">
       <div className="card-body">

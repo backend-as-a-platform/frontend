@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Auth } from '../../contexts/Auth';
+import { Search } from '../../contexts/Search';
 import EditForm from '../Dashboard/EditForm';
 import { getUsersByIds } from '../../hooks/useAuth';
 import { getProject } from '../../hooks/useProject';
@@ -19,6 +20,7 @@ import RecordsTable from '../Tables/RecordsTable';
 
 const ManageForm = () => {
   const [auth] = useContext(Auth);
+  const [search] = useContext(Search);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -39,6 +41,7 @@ const ManageForm = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showCreateFormModal, setShowCreateFormModal] = useState(false);
   const [records, setRecords] = useState([]);
+  const [filteredRecords, setFilteredRecords] = useState([]);
   const navigate = useNavigate();
   const { projectId, formId } = useParams();
   const toggleEditModal = (e) => setShowEditModal(!showEditModal);
@@ -87,19 +90,42 @@ const ManageForm = () => {
     }
 
     setRecords(records);
+    setFilteredRecords(records);
 
     const recordKeys = {};
 
     if (records && records.length) {
       records.map((record) => {
-        Object.keys(record).map((key) =>
-          key != '_id' ? (recordKeys[key] = true) : null
-        );
+        Object.keys(record).map((key) => {
+          key != '_id' && record[key] !== undefined
+            ? (recordKeys[key] = true)
+            : null;
+        });
       });
     }
 
     setCols(Object.keys(recordKeys));
   }, [version, latestVersion]);
+
+  useEffect(() => {
+    setFilteredRecords(records);
+
+    const filtered = records.filter((record) => {
+      for (let i = 0; i < cols.length; i++) {
+        const target = Array.isArray(record[cols[i]])
+          ? [...record[cols[i]]].toString()
+          : record[cols[i]].toString();
+
+        try {
+          if (target.toLowerCase().indexOf(search.toLowerCase()) > -1) {
+            return true;
+          }
+        } catch (_) {}
+      }
+    });
+
+    setFilteredRecords(filtered);
+  }, [search]);
 
   const onVersionChange = (e) => setVersion(e.target.value);
   const onFormatChange = (e) => setFormat(e.target.value);
@@ -196,7 +222,7 @@ const ManageForm = () => {
         ) : null}
       </div>
       <CTA />
-      {auth._id === owner && shareTo !== 'private' ? (
+      {auth._id === owner && shareTo !== 'private' && active ? (
         <div className="mb-7">
           <ShareAlert
             helpText="Form URL -"
@@ -211,9 +237,9 @@ const ManageForm = () => {
             }/forms/${formId}/[record_id]`}
           />
         </div>
-      ) : (
+      ) : active ? (
         <ShareHelpAlert />
-      )}
+      ) : null}
       <EditForm active={active} fields={fields} />
       <SectionTitle>Records</SectionTitle>
       <button
@@ -253,11 +279,11 @@ const ManageForm = () => {
           })}
         </>
       </select>
-      {records && records.length ? (
+      {filteredRecords && filteredRecords.length ? (
         <RecordsTable
           formId={formId}
           cols={cols}
-          records={records}
+          records={filteredRecords}
           version={version}
           latestVersion={latestVersion}
         />

@@ -17,17 +17,14 @@ import Forms from './routes/Forms';
 import ManageProject from './components/Dashboard/ManageProject';
 import CreateForm from './components/Dashboard/CreateForm';
 import ManageForm from './components/Dashboard/ManageForm';
-import ManageFormRecord from './routes/ManageFormRecord';
+import CreateFormRecord from './routes/CreateFormRecord';
 
 const App = () => {
   const [auth] = useContext(Auth);
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={auth._id ? <Navigate to="/dashboard" replace /> : <Home />}
-      />
+      <Route path="/" element={<Home />} />
       <Route path="/docs" element={<Docs />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
@@ -61,7 +58,7 @@ const App = () => {
       />
       <Route
         path="/forms/:formId"
-        element={<ProtectedRoute route={<ManageFormRecord />} />}
+        element={<ProtectedRoute route={<CreateFormRecord />} />}
       />
       <Route
         path="/forms"
