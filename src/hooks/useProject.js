@@ -1,5 +1,15 @@
 import http, { transformResponse } from '../utils/http';
 
+const getStats = async () => {
+  try {
+    const { data } = await http.get('/projects/stats');
+
+    return data;
+  } catch (_) {
+    return;
+  }
+};
+
 const getProject = async (id) => {
   try {
     const { data } = await http.get(`/projects/${id}`);
@@ -138,6 +148,7 @@ const setProjectStatus = async (id, status) => {
 };
 
 export {
+  getStats,
   getProject,
   getProjects,
   createProject,

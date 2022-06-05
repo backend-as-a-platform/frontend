@@ -14,6 +14,7 @@ import {
 } from '../../utils/classes';
 
 const LoginForm = ({ onToggle, onToggleReset }) => {
+  // const [auth, setAuth] = useContext(Auth);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +34,7 @@ const LoginForm = ({ onToggle, onToggleReset }) => {
 
     // Will update Auth context with the new authenticated user
     if (authToken) {
-      // const decodedToken = decodeJwt(authToken);
+      const decodedToken = decodeJwt(authToken);
 
       // setAuth((current) => ({ ...current, ...decodedToken }));
       window.location.pathname = '/dashboard';

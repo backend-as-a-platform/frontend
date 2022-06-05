@@ -64,6 +64,24 @@ const logout = async (all) => {
   }
 };
 
+const requestPasswordReset = async (email, setResult) => {
+  try {
+    const { data } = await http.post('/users/request-password-reset', {
+      email,
+    });
+
+    const result = transformResponse(data.result);
+
+    setResult(result);
+
+    return true;
+  } catch (_) {
+    setResult('Email must be valid');
+
+    return;
+  }
+};
+
 const getProfile = async () => {
   try {
     const { data } = await http.get('/users/profile');
@@ -167,4 +185,5 @@ export {
   checkUserEmail,
   checkAvatar,
   getAvatarUri,
+  requestPasswordReset,
 };

@@ -3,13 +3,14 @@ import { Search } from '../../contexts/Search';
 import PageTitle from '../Typography/PageTitle';
 import CTA from '../CTA/CTA';
 import InfoCard from '../Cards/InfoCard';
-import { getProjects } from '../../hooks/useProject';
+import { getProjects, getStats } from '../../hooks/useProject';
 import ProjectsTable from '../Tables/ProjectsTable';
 import SectionTitle from '../Typography/SectionTitle';
 import FormsTable from '../Tables/FormsTable';
 import { getForms } from '../../hooks/useForm';
 
 const Dashboard = () => {
+  const [stats, setStats] = useState({});
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [forms, setForms] = useState([]);
@@ -17,6 +18,11 @@ const Dashboard = () => {
   const [search] = useContext(Search);
 
   useEffect(async () => {
+    const stats = await getStats();
+    console.log(stats);
+
+    setStats(stats);
+
     const projects = await getProjects();
 
     setProjects(projects);
@@ -68,10 +74,22 @@ const Dashboard = () => {
       <CTA />
 
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total projects" value="137" />
-        <InfoCard title="Total forms" value="1337" />
-        <InfoCard title="Total records" value="31337" />
-        <InfoCard title="Archived projects" value="37" />
+        <InfoCard
+          title="Total projects"
+          value={stats.projects ? stats.projects.total : 0}
+        />
+        <InfoCard
+          title="Total forms"
+          value={stats.forms ? stats.forms.total : 0}
+        />
+        <InfoCard
+          title="Archived projects"
+          value={stats.projects ? stats.projects.inactive : 0}
+        />
+        <InfoCard
+          title="Archived forms"
+          value={stats.forms ? stats.forms.inactive : 0}
+        />
       </div>
 
       <SectionTitle>Projects</SectionTitle>

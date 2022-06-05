@@ -19,6 +19,7 @@ const Home = () => {
   const [modalTitle, setModalTitle] = useState(modalTitles[0]);
   const [showModal, setShowModal] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
 
   useEffect(() => {
     AOS.init({ mirror: true, once: true });
@@ -37,10 +38,18 @@ const Home = () => {
   const toggleToLogin = (e) => {
     setModalTitle(modalTitles[0]);
     setShowLogin(true);
+    setShowResetPassword(false);
   };
 
   const toggleToSignup = (e) => {
     setModalTitle(modalTitles[1]);
+    setShowLogin(false);
+    setShowResetPassword(false);
+  };
+
+  const toggleToResetPassword = (e) => {
+    setModalTitle(modalTitles[2]);
+    setShowResetPassword(true);
     setShowLogin(false);
   };
 
@@ -61,8 +70,10 @@ const Home = () => {
         title={modalTitle}
         show={showModal}
         login={showLogin}
+        reset={showResetPassword}
         toggleToLogin={toggleToLogin}
         toggleToSignup={toggleToSignup}
+        toggleToResetPassword={toggleToResetPassword}
         onHide={toggleModal}
       />
     </div>
