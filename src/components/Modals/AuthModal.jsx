@@ -17,7 +17,7 @@ const AuthModal = ({
 }) => {
   return (
     <Modal
-      title={newPassword ? modalTitles[2] : title}
+      title={newPassword ? modalTitles[3] : title}
       show={newPassword ? true : show}
       closable={newPassword && false}
       onHide={onHide}
@@ -41,6 +41,7 @@ const AuthModal = ({
 const modalTitles = [
   'Login to your account',
   'Sign up to our platform',
+  'Lost password',
   'Reset your password',
 ];
 

@@ -13,7 +13,6 @@ import {
   tooltipSuccess,
 } from '../../utils/classes';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
 
 const PasswordResetForm = ({ onToggle }) => {
   const [name, setName] = useState('');
@@ -65,14 +64,14 @@ const PasswordResetForm = ({ onToggle }) => {
       <div>
         <button type="submit" className="w-full mt-2 btn btn-primary">
           {isSubmitting && <SpinnerIcon size={5} />}
-          Change
+          Reset
         </button>
       </div>
       <p className="text-sm text-gray-900 font-medium dark:text-gray-300">
         Back to{' '}
-        <Link className={`cursor-pointer ${linkPrimary}`} to="/">
+        <a className={`cursor-pointer ${linkPrimary}`} href="/">
           Home
-        </Link>
+        </a>
       </p>
     </form>
   );
