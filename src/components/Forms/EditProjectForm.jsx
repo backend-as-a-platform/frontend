@@ -71,7 +71,7 @@ const EditProjectForm = ({
     setNewAddedUsers((current) => current.filter((user) => user._id !== id));
 
   const onSubmit = async (e) => {
-    const restrictedTo = newAddedUsers.map((user) => user._id);
+    const restrictedTo = newAddedUsers && newAddedUsers.map((user) => user._id);
     const updatedProject = await updateProject(
       projectId,
       newName,

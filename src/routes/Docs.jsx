@@ -59,7 +59,26 @@ const Docs = () => {
         <br />
         <div className="mx-5 mockup-code base-300">
           <pre>
-            <code className="text-amber-500">Want to join the community?</code>
+            <code className="text-amber-500">
+              API Endpoints : indicates URL parameters * indicates Authorization
+              Token is required values within braces indicates required/optional
+              JSON parameters User ---- POST /users/signup{' '}
+              {(name, email, password)} - user signup POST /users/login{' '}
+              {(email, password)} - user login GET /users/:id - finds user by id
+              GET /users/:id/send-verification - sends verification mail GET
+              /users/:id/avatar.png - gets user's avatar image POST /users/find{' '}
+              {[userIds]} - finds multiple users by their IDs given in array GET
+              /users/verify/:verificationToken - verifies user email POST
+              /users/request-password-reset {email} - sends password reset link
+              mail GET /users/profile * - get user profile DELETE /users/profile
+              * - delete user profile UPDATE /users/profile *{' '}
+              {(name, email, password)} - update user profile POST
+              /users/profile/avatar * {avatar} - uploads user's avatar image
+              DELETE /users/profile/avatar * - deletes user's avatar image GET
+              /users/mail/:mailId * - finds user by email GET /users/logout * -
+              user logout (current browser session) GET /users/logout/all * -
+              user logout (all browser sessions)
+            </code>
           </pre>
         </div>
         <br />
