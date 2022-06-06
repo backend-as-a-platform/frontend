@@ -146,7 +146,7 @@ const updateProfile = async (name, email, password, avatar, setResult) => {
 
 const getUsersByIds = async (userIds) => {
   try {
-    const { data } = await http.post('/users/ids', { userIds });
+    const { data } = await http.post('/users/find', { userIds });
 
     return data;
   } catch ({ response }) {
