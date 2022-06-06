@@ -91,7 +91,7 @@ const resetPassword = async (newPassword, passwordResetToken, setResult) => {
       { newPassword }
     );
 
-    setResult('Your password has been changed successfully');
+    setResult('Your password has been reset successfully');
 
     return true;
   } catch ({ response }) {
