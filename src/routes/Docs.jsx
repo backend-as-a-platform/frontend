@@ -4,21 +4,13 @@ const Docs = () => {
       <article className="prose">
         <br />
         <h1 className="mx-5 text-5xl text-cyan-600 body-font font-poppins">
-          <b>Welcome to the BaaP developer documentation!</b>
+          <b>Welcome to BaaP developer documentation!</b>
         </h1>
         <br />
         <p className="mx-5 text-gray-600 body-font font-poppins">
           This documentation contains all technical documentation related to the
           setup, deployment, update and customization of your BaaP application.
         </p>
-        <br />
-        <div className="mx-5 mockup-code">
-          <pre>
-            <code className="text-amber-500">
-              Can't wait to start using BaaP?
-            </code>
-          </pre>
-        </div>
         <br />
         <p className="mx-5 text-gray-600 body-font font-poppins">
           The original purpose of the project was to help users with the help of
@@ -28,9 +20,9 @@ const Docs = () => {
           back-end server with all the needed functionalities along with the
           database will be generated. <br />
           <br />
-          Basically Backend as a Platform (BaaP) is a Low-code application
-          development platform specifically for back-ends. The technologies used
-          here include Node.js, Express, REST, GraphQL and MongoDB.
+          Basically Backend as a Platform (BaaP) is a No-code Backend as a
+          Service platform. The technologies used here include TypeScript,
+          Node.js, Express.js, REST APIs and MongoDB.
         </p>
         <br />
         <h2 className="mx-5 text-3xl text-neutral-600 body-font font-poppins">
@@ -42,45 +34,30 @@ const Docs = () => {
           MIT. The core project, as well as the documentation and any related
           tool can be found in the backend-as-a-platform in GitHub Organisation.
           <br />
+          <br />
           <a
             className="text-cyan-600"
-            href="https://github.com/orgs/backend-as-a-platform/dashboard"
+            href="https://github.com/backend-as-a-platform/backend"
+            target="_blank"
           >
-            https://github.com/orgs/backend-as-a-platform/dashboard
+            https://github.com/backend-as-a-platform/backend
+          </a>
+          <br />
+          <a
+            className="text-cyan-600"
+            href="https://github.com/backend-as-a-platform/frontend"
+            target="_blank"
+          >
+            https://github.com/backend-as-a-platform/frontend
           </a>
         </p>
         <br />
         <p className=" mx-5 text-gray-600 body-font font-poppins">
           As it goes hand in hand with the open-source ecosystem, BaaP is open
-          to contributions. We appreciates every contribution, be it a feature
+          to contributions. We appreciate every contribution, be it a feature
           request, bug report, or pull request. The following GitHub
           repositories are open-source and contributions-friendly.
         </p>
-        <br />
-        <div className="mx-5 mockup-code base-300">
-          <pre>
-            <code className="text-amber-500">
-              API Endpoints : indicates URL parameters * indicates Authorization
-              Token is required values within braces indicates required/optional
-              JSON parameters User ---- POST /users/signup{' '}
-              {(name, email, password)} - user signup POST /users/login{' '}
-              {(email, password)} - user login GET /users/:id - finds user by id
-              GET /users/:id/send-verification - sends verification mail GET
-              /users/:id/avatar.png - gets user's avatar image POST /users/find{' '}
-              {[userIds]} - finds multiple users by their IDs given in array GET
-              /users/verify/:verificationToken - verifies user email POST
-              /users/request-password-reset {email} - sends password reset link
-              mail GET /users/profile * - get user profile DELETE /users/profile
-              * - delete user profile UPDATE /users/profile *{' '}
-              {(name, email, password)} - update user profile POST
-              /users/profile/avatar * {avatar} - uploads user's avatar image
-              DELETE /users/profile/avatar * - deletes user's avatar image GET
-              /users/mail/:mailId * - finds user by email GET /users/logout * -
-              user logout (current browser session) GET /users/logout/all * -
-              user logout (all browser sessions)
-            </code>
-          </pre>
-        </div>
         <br />
         <h2 className="mx-5 text-3xl text-neutral-600 body-font font-poppins">
           <b>Quick Start Guide</b>
@@ -141,6 +118,270 @@ const Docs = () => {
           </li>
         </ul>
         <br />
+        <h2 className="mx-5 text-3xl text-neutral-600 body-font font-poppins">
+          <b>API Endpoints</b>
+        </h2>
+        <br />
+        <p className="mx-5 text-gray-600 body-font font-poppins">
+          <span className="font-extrabold">:</span> indicate(s) URL
+          parameter(s).
+          <br />
+          <span className="font-extrabold">*</span> indicates that Authorization
+          Token is required.
+          <br />
+          values within braces indicates required/optional JSON parameters.
+        </p>
+        <p className="mx-5 body-font font-poppins">
+          <br />
+          <b>Users</b>
+        </p>
+        <br />
+        <div className="mx-5 mockup-code base-300">
+          <pre>
+            <code className="text-amber-500">
+              Signup - POST /users/signup &#123;name, email, password&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Login - POST /users/login &#123;email, password&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Find user by ID - GET /users/:id
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Send verification email - GET /users/:id/send-verification
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Get user's avatar image - GET /users/:id/avatar.png
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Verify user profile - GET /users/verify/:verificationToken
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Send password reset email - POST /users/request-password-reset{' '}
+              &#123;email&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Get user profile - GET /users/profile *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Delete user profile - DELETE /users/profile *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Update user profile - UPDATE /users/profile * &#123;name, email,
+              password&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Update user's avatar image - POST /users/profile/avatar *
+              &#123;avatar&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Delete user's avatar image - DELETE /users/profile/avatar *
+              &#123;avatar&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Find user by Email - GET /users/mail/:email *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Logout current browser session - GET /users/logout *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Logout all browser sessions - GET /users/logout/all *
+            </code>
+          </pre>
+        </div>
+        <p className="mx-5 body-font font-poppins">
+          <br />
+          <b>Projects</b>
+        </p>
+        <br />
+        <div className="mx-5 mockup-code base-300">
+          <pre>
+            <code className="text-amber-500">
+              Get dashboard statistics - GET /projects/stats *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Get all the projects owned by the user - GET /projects
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Create a new project - POST /projects/new * &#123;name,
+              description, access, restrictedTo&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Get owned project by ID - GET /projects/:projectId *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Update owned project by ID - PUT /projects/:projectId *
+              &#123;name, description, access, restrictedTo&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Delete owned project by ID - DELETE /projects/:projectId *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Clone an accessible project owned by another user with it's ID -
+              POST /projects/:projectId/clone * &#123;name, description, access,
+              restrictedTo&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Archive/unarchive owned project by ID - POST
+              /projects/:projectId/status * &#123;active&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Get all the forms that are part of a project - GET
+              /projects/:projectId/forms *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Create a new form under a project by it's ID - POST
+              /projects/:projectId/forms/new * &#123;name, description,
+              fields&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Get a form under a project by their respective IDs - GET
+              /projects/:projectId/forms/:formId *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Update a form under a project by their respective IDs - PUT
+              /projects/:projectId/forms/:formId * &#123;name, description,
+              fields&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Delete a form under a project by their respective IDs - DELETE
+              /projects/:projectId/forms/:formId *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Share a form to other users under a project by their respective
+              IDs - POST /projects/:projectId/forms/:formId/share *{' '}
+              &#123;access, restrictedTo&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Archive/unarchive a form under a project by their respective IDs -
+              POST /projects/:projectId/forms/:formId/status *
+              &#123;active&#125;
+            </code>
+          </pre>
+        </div>
+        <p className="mx-5 body-font font-poppins">
+          <br />
+          <b>Forms</b>
+          <br />
+          <br />
+          <p className="text-gray-600 body-font font-poppins">
+            <span className="font-extrabold">&#123;...&#125;</span> indicates
+            dynamic fields of a form.
+          </p>
+          <p className="text-gray-600 body-font font-poppins">
+            <span className="font-extrabold">[v/:version]</span> indicates
+            optional version of a form (each form schema update is a new
+            version). If this path is omitted, latest version will be fetched
+            always.
+          </p>
+          <p className="text-gray-600 body-font font-poppins">
+            <span className="font-extrabold">[?format=file-format]</span>{' '}
+            indicates the form records need to be exported in the specified
+            format. Format includes ['csv', 'html', 'json', 'rtf', 'txt',
+            'xlsx'].
+          </p>
+        </p>
+        <br />
+        <div className="mx-5 mockup-code base-300">
+          <pre>
+            <code className="text-amber-500">
+              Create a new form record by ID - POST /forms/:formId *
+              &#123;...&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Get all the form records by ID - GET
+              /forms/:formId/[v/:version][?format=file-format] *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Get a form record by ID - GET
+              /forms/:formId/[v/:version]/:recordId *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Update a form record by ID - PUT
+              /forms/:formId/[v/:version]/:recordId * &#123;...&#125;
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Delete a form record by ID - DELETE
+              /forms/:formId/[v/:version]/:recordId *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Get the schema related information about a form by ID - GET
+              /forms/:formId/info *
+            </code>
+          </pre>
+          <pre>
+            <code className="text-amber-500">
+              Download an exported file of form records by name - GET
+              /forms/download?file=:file-name
+            </code>
+          </pre>
+        </div>
         <br />
       </article>
     </div>
